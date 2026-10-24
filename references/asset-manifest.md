@@ -1,8 +1,8 @@
-# Beans asset upload manifest
+# Beans asset preparation manifest
 
 The source assets live in the separate **Beans-iOS** repository. They are not copied into this prompt repository.
 
-Upload selected files to Runable before building. Mentioning a source path in a prompt does not make the file available to the builder.
+Make selected approved files available to the website project before building. Mentioning a source path in a prompt does not transfer the file. Preserve provenance, and include only assets approved for public website use.
 
 ## Identity
 
@@ -61,7 +61,7 @@ These are composition and appearance references, not uniformly current release s
 
 Do not erase a fixture notice and republish the image as proof of a real account or live interaction. For marketing demonstrations, create a faithful accessible layout with illustrative data and a visible product-demonstration label.
 
-Do not upload screenshots containing actual private owner or animal records. Use approved synthetic material.
+Do not include screenshots containing actual private owner or animal records in the public website or third-party generation requests. Use approved synthetic material.
 
 ## Missing assets and generation
 
@@ -71,7 +71,7 @@ Do not upload screenshots containing actual private owner or animal records. Use
 - Generate clean subject imagery separately from HTML interface text.
 - Preserve species identity, anatomy, markings, and lighting between reference and animation.
 - Keep a provenance record for generated or externally sourced assets, including prompt/origin and applicable usage rights.
-- Verify model/tool availability in Runable rather than assuming GPT Image 2.5 or Seedance 2.5 is enabled.
+- Verify which generation tools are actually available and approved for the project rather than assuming access to GPT Image 2.5, Seedance 2.5, or a particular hosted platform.
 
 ## Release configuration, not visual assets
 

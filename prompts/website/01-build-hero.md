@@ -14,13 +14,13 @@ The feeling is affectionate, reassuring, thoughtful, and precise. Premium means 
 
 ## Project and asset handling
 
-Use Runable's managed mode and supported project structure so the website remains editable and deployable within Runable.
+Build directly in the website source repository using conventional web tooling. Preserve the existing framework, package manager, source layout, and build/deployment configuration. If no website implementation exists, state a small, maintainable setup compatible with GSAP before scaffolding it. Do not assume a hosted site builder or managed mode.
 
 The SwiftUI project is a product and visual reference, not the website runtime. Do not attempt to run SwiftUI, native shaders, or iOS-only dependencies in the browser.
 
 Inspect supplied assets before choosing the implementation. Prefer existing media and a lightweight layered composition over introducing a large 3D framework.
 
-Relevant source assets, uploaded separately:
+Relevant source assets, supplied separately:
 
 - Beans logo variants from `BeansVet/Resources/BeansAssets.xcassets`: BeansLogoHorizontal, BeansLogoStacked, BeansMark, and BeansWordmark.
 - Species artwork: TrackingDog, TrackingCat, TrackingHorse, and supplied dog/cat overlays.
@@ -238,4 +238,4 @@ Keep important content visible if animation, video, or advanced rendering fails.
 
 Inspect the hero at desktop and mobile sizes. Verify navigation, theme switching, stage progression, reverse movement, residual trackpad momentum, keyboard access, Skip, reduced motion, media failure, and loading behavior.
 
-Run the actual supported build and deployment checks available in Runable. Report what was verified and any missing assets or configuration honestly. Include the shared GSAP brief's animation handoff.
+Run the website's actual build, lint, type, and test commands where configured, and inspect the rendered result in a browser. Validate the production build or deployment preview when available; do not publish to production without explicit authorization. Report the exact checks performed and any missing assets, configuration, or unverified deployment assumptions. Include the shared GSAP brief's animation handoff.

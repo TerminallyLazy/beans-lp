@@ -1,6 +1,6 @@
 # Required implementation direction — GSAP-first Beans experience
 
-Apply this brief to both Runable phases. It governs technical implementation without replacing the phase-specific creative brief.
+Apply this brief to both website build phases. It governs technical implementation without replacing the phase-specific creative brief.
 
 Build the Beans landing page using **GSAP as its primary animation system**, with **ScrollTrigger as the foundation for scroll-driven choreography**.
 
@@ -31,7 +31,7 @@ Read the relevant guidance from:
 - `gsap-scrolltrigger`
 - `gsap-plugins`
 - `gsap-performance`
-- `gsap-react`, when the managed project uses React
+- `gsap-react`, when the website uses React
 - `gsap-utils`, where useful
 
 Additional references:
@@ -56,7 +56,9 @@ Use ScrollTrigger for:
 - Reversible section choreography.
 - Starting and pausing section-specific animation.
 
-Register every plugin used before its first use. Use package-managed dependencies within Runable's supported project structure, with compatible versions recorded in the lockfile.
+Implement directly in the website source repository. Inspect and preserve its existing framework, package manager, source layout, scripts, and build/deployment configuration. If no website implementation exists, state a conventional web setup compatible with GSAP before scaffolding it. Do not assume a hosted site builder, managed mode, or a specific deployment provider.
+
+Register every plugin used before its first use. Use the project's package manager for dependencies, with compatible versions recorded in the lockfile.
 
 Do not add a separate application scaffold or incompatible build system merely to reproduce an example.
 
@@ -91,7 +93,7 @@ Avoid ScrambleText, theatrical logo morphing, physics effects, or exaggerated bo
 
 Evaluate **Locomotive Scroll** as the preferred smooth-scroll enhancement, especially for desktop storytelling.
 
-Use one compatible Locomotive Scroll instance if it works reliably within the managed project. Verify its current integration API and synchronize its scroll updates with ScrollTrigger as documented.
+Use one compatible Locomotive Scroll instance if it works reliably within the website's stack. Verify its current integration API and synchronize its scroll updates with ScrollTrigger as documented.
 
 The reviewed Locomotive Scroll v5 is built on Lenis. Do not create another independent Lenis instance alongside it.
 
@@ -118,7 +120,7 @@ If Locomotive Scroll causes compatibility or accessibility problems, retain GSAP
 
 ## BSMNT Scrollytelling — use selectively in React
 
-If the supported managed project uses React, evaluate `@bsmnt/scrollytelling` for the Everyday Care reel and other genuinely scroll-scrubbed compositions.
+If the website uses React, evaluate `@bsmnt/scrollytelling` for the Everyday Care reel and other genuinely scroll-scrubbed compositions.
 
 Use it when its Root, Animation, Waypoint, or Parallax abstractions make the section easier to maintain.
 

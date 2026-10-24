@@ -2,7 +2,7 @@
 
 Complete the existing Beans landing page by adding **Everyday Care, Meet Beans, Your Whole Family, and Contact** sections, followed by a polished footer.
 
-Apply the shared GSAP implementation brief supplied with this prompt. Preserve the completed hero, its visual identity, and its optional guided tour. Continue using Runable's supported managed project structure.
+Apply the shared GSAP implementation brief supplied with this prompt. Preserve the completed hero, its visual identity, and its optional guided tour. Continue using the website's existing framework, package manager, source layout, and build/deployment configuration. Do not introduce a hosted site-builder dependency or replace the stack merely to follow an example.
 
 This is a marketing website for the Beans iPhone app, not a browser-based veterinary service and not a recreation of the entire app.
 
@@ -291,7 +291,7 @@ Anchor navigation and back-to-top must use the active scroll system and remain i
 
 ## Asset reuse and generation
 
-Reuse the uploaded Beans artwork, animal animations, and posters before generating anything new.
+Reuse the supplied Beans artwork, animal animations, and posters before generating anything new.
 
 Target a focused media set:
 
@@ -301,7 +301,7 @@ Target a focused media set:
 
 Existing one-shot greeting clips should remain one-shot unless they have a genuinely seamless loop. Do not force a visible jump back to the first frame.
 
-If Runable exposes GPT Image 2.5 and Seedance 2.5, use them for genuinely missing visual assets. Otherwise use the supported tools actually available and report the substitution.
+Use only image, video, and audio tools actually available and approved for this project. GPT Image 2.5 and Seedance 2.5 may be used for genuinely missing visual assets if available; neither is a platform requirement. If generation is unavailable, retain supplied assets and report the gap rather than inventing access or completion.
 
 For generated animal footage:
 
@@ -357,6 +357,6 @@ Inspect at desktop and mobile sizes, including a narrow phone viewport and enlar
 - Layout shifts and horizontal overflow.
 - Removal of development markers and debug controls.
 
-Run the actual build and deployment checks supported by the managed project.
+Run the website's actual build, lint, type, and test commands where configured, and inspect the rendered result in a browser. Validate the production build or deployment preview when available; do not publish to production without explicit authorization.
 
 Finish with a concise handoff listing assets reused or generated, interactions verified, backend status, missing release links, and remaining limitations. Include the shared GSAP brief's library versions and plugin/tool usage report. Do not claim unperformed checks or a deployment that did not happen.
