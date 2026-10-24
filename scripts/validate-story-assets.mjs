@@ -14,6 +14,7 @@ for (const [path, expected] of Object.entries(release.files)) {
 }
 const track = JSON.parse(await readFile(new URL('public/assets/story/journey-track.json', root), 'utf8'));
 if (!Number.isFinite(track.fps) || track.fps <= 0 || track.fps !== release.fps || track.frame_count !== release.frameCount || track.frames.length !== release.frameCount) throw new Error('Film and screen-tracking clocks differ.');
+if (track.faces?.length !== track.frame_count || track.faces.some(face => !['app','case'].includes(face))) throw new Error('Film handset orientation is incomplete.');
 let offset = 0;
 for (const [index, id] of ['phone', 'kitten', 'puppy', 'pony', 'family'].entries()) {
   const scene = track.scenes[index];

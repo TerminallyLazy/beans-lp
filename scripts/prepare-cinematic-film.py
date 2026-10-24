@@ -12,6 +12,10 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+# Reject the entire generated rise/turn, including the impossible neck twist.
+# Source IDs are zero-based and refer to the pinned 518-frame restoration.
+SOURCE_FRAMES = list(range(356)) + list(range(400, 518))
+EDIT_CUT = 356
 
 
 def run(command):
@@ -31,7 +35,8 @@ def main():
     work.mkdir(parents=True, exist_ok=True)
     info = json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-of','json',str(args.source)]))['streams'][0]
     assert (info['width'],info['height'],info['r_frame_rate'],int(info['nb_frames'])) == (1920,1088,'16/1',518)
-    count, fps = math.ceil(518 / 16 * 60), 60
+    source_count = len(SOURCE_FRAMES)
+    count, fps = math.ceil(source_count / 16 * 60), 60
     old = json.loads((ROOT / 'public/assets/story/journey-track.json').read_text())
     # Both reviewed tracking deliveries contain the exact 16 fps source planes.
     # Use the retained original tracking for a repeat build after release.
@@ -45,30 +50,52 @@ def main():
         original = old['frames'][::2]
         scenes = [dict(scene,start_frame=scene['start_frame']//2,frames=scene['frames']//2) for scene in old['scenes']]
     assert len(original) == 518
-    track = []
+    original = [original[index] for index in SOURCE_FRAMES]
+    scenes[-1]['frames'] = source_count - EDIT_CUT
+    track, faces, cut_intermediates = [], [], []
     for frame in range(count):
         # RIFE's published directory runner uses source_count/output_count,
         # clamping at the final source pose. Pair measured planes with that
         # exact sampling position rather than rounding an assumed frame rate.
-        position = min(517, frame * 518 / count)
+        position = min(source_count - 1, frame * source_count / count)
+        # An editorial cut must never become a neural body/face morph. Hold
+        # the outgoing picture until the first sample of the incoming shot.
+        if EDIT_CUT - 1 < position < EDIT_CUT:
+            position = EDIT_CUT - 1
+            cut_intermediates.append(frame)
         index = math.floor(position)
-        left, right = original[index], original[min(517,index+1)]
+        left, right = original[index], original[min(source_count-1,index+1)]
         fraction = position - index
         track.append([[(1-fraction)*a[0]+fraction*b[0],(1-fraction)*a[1]+fraction*b[1]] for a,b in zip(left,right)] if left and right else left if fraction == 0 else None)
-    boundaries = [math.ceil(scene['start_frame']*count/518) for scene in scenes] + [count]
+        source_id = SOURCE_FRAMES[index]
+        quad = track[-1]
+        rear = 393 <= source_id < 478 if source_id >= 356 else bool(quad and max(p[1] for p in quad)-min(p[1] for p in quad) < .22)
+        faces.append('case' if rear else 'app')
+    boundaries = [math.ceil(scene['start_frame']*count/source_count) for scene in scenes] + [count]
     scenes = [dict(scene,start_frame=boundaries[i],frames=boundaries[i+1]-boundaries[i]) for i,scene in enumerate(scenes)]
-    (work/'journey-track.json').write_text(json.dumps(dict(width=960,height=544,fps=fps,frame_count=count,frames=track,scenes=scenes),separators=(',',':')))
+    (work/'journey-track.json').write_text(json.dumps(dict(width=960,height=544,fps=fps,frame_count=count,frames=track,faces=faces,scenes=scenes),separators=(',',':')))
     source_frames, output_frames = work/'source-frames', work/'intermediate-frames'
     source_frames.mkdir(exist_ok=True); output_frames.mkdir(exist_ok=True)
     source_sha = hashlib.sha256(args.source.read_bytes()).hexdigest()
     receipt = work/'intermediate-source.json'
     if args.reuse_intermediates:
         assert json.loads(receipt.read_text())['sourceSHA256'] == source_sha
+        assert json.loads(receipt.read_text())['sourceFrames'] == SOURCE_FRAMES
     else:
-        run(['ffmpeg','-y','-loglevel','error','-i',str(args.source),str(source_frames/'%08d.png')])
-        assert len(list(source_frames.glob('*.png'))) == 518
+        restored = work/'restored-frames'
+        restored.mkdir(exist_ok=True)
+        run(['ffmpeg','-y','-loglevel','error','-i',str(args.source),str(restored/'%08d.png')])
+        assert len(list(restored.glob('*.png'))) == 518
+        for index, source_id in enumerate(SOURCE_FRAMES):
+            (source_frames/f'{index+1:08d}.png').hardlink_to(restored/f'{source_id+1:08d}.png')
         run([str(args.rife_bin),'-m',str(args.rife_model),'-i',str(source_frames),'-o',str(output_frames),'-n',str(count),'-f','%08d.png','-j','1:2:2'])
-        receipt.write_text(json.dumps(dict(sourceSHA256=source_sha,frames=count))+'\n')
+        # Replace the interpolation across the edit with an exact outgoing pose.
+        # RIFE output filenames are one-based, as are the source PNG names.
+        for frame in cut_intermediates:
+            target = output_frames/f'{frame+1:08d}.png'
+            target.unlink()
+            target.hardlink_to(source_frames/f'{EDIT_CUT:08d}.png')
+        receipt.write_text(json.dumps(dict(sourceSHA256=source_sha,sourceFrames=SOURCE_FRAMES,frames=count,cutFrames=cut_intermediates))+'\n')
     assert len(list(output_frames.glob('*.png'))) == count
     command = ['ffmpeg','-y','-loglevel','error','-framerate','60','-i',str(output_frames/'%08d.png'),'-filter_complex_threads','1','-filter_complex','[0:v]split=2[hd][small];[small]scale=960:544:flags=lanczos[mobile]']
     for stream,name in [('hd','journey-hd.mp4'),('mobile','journey.mp4')]:
@@ -79,7 +106,7 @@ def main():
         assert int(out['nb_frames']) == count and out['r_frame_rate'] == '60/1'
     for name,frame in [('journey-start.webp',0),('journey-end.webp',count-1)]:
         run(['ffmpeg','-y','-loglevel','error','-i',str(work/'journey-hd.mp4'),'-vf',f'select=eq(n\\,{frame})','-frames:v','1','-c:v','libwebp','-quality','94',str(work/name)])
-    (work/'candidate.json').write_text(json.dumps(dict(reviewRequired=True,fps=fps,frames=count,sourceSHA256=hashlib.sha256(args.source.read_bytes()).hexdigest()),indent=2)+'\n')
+    (work/'candidate.json').write_text(json.dumps(dict(reviewRequired=True,fps=fps,frames=count,sourceFrames=SOURCE_FRAMES,cutFrames=cut_intermediates,sourceSHA256=source_sha),indent=2)+'\n')
 
 
 if __name__ == '__main__':

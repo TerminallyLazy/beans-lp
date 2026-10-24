@@ -18,7 +18,7 @@ import './encounter-landing.css';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother, SplitText);
 const BETA = 'https://testflight.apple.com/join/7WSeN4VB';
-type Track = { width: number; height: number; fps: number; frame_count: number; frames: (ScreenQuad | null)[]; scenes: { id: string; start_frame: number; frames: number }[] };
+type Track = { width: number; height: number; fps: number; frame_count: number; frames: (ScreenQuad | null)[]; faces: ('app' | 'case')[]; scenes: { id: string; start_frame: number; frames: number }[] };
 type Loaded = { compositor: FilmCompositor; screens: Record<AppScreen, HTMLImageElement>; track: Track; ending: HTMLImageElement; cache?: CachedFilm };
 type Delights = ReturnType<typeof import('./story-delights').createStoryDelights>;
 const image = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
@@ -74,7 +74,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       }).catch(() => undefined), mediaReady, document.fonts.ready,
     ]).then(([track, screens, ending, rear]) => {
       if (cancelled) return;
-      if (track.frames.length !== track.frame_count || track.fps <= 0) throw new Error('Incomplete story tracking');
+      if (track.frames.length !== track.frame_count || track.faces.length !== track.frame_count || track.fps <= 0) throw new Error('Incomplete story tracking');
       createStoryClock(track);
       fitFilmSurface(surface);
       compositor = new FilmCompositor(surface, screens.welcome, rear);
@@ -113,7 +113,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       const frame = presentedFrame;
       const key: AppScreen = selected.current && presented.index === 4 ? `${selected.current}-activity` : presented.screen;
       if (key !== lastArt) { compositor.setScreen(screens[key]); lastArt = key; }
-      const face = phoneFace(frame, track.fps, familyStart, track.frames[frame]);
+      const face = phoneFace(frame, track.fps, familyStart, track.frames[frame], track.faces);
       let screenOpacity = 1;
       if (!still) for (let prior = 1; prior <= 3; prior++) {
         if (!track.frames[frame - prior]) screenOpacity = Math.min(screenOpacity, prior / 4);
@@ -197,7 +197,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       // Filter the page and its story together. A second numeric film scrub
       // would leave the picture catching up after the pinned stage has moved.
       const smooth = ScrollSmoother.create({ wrapper: scrollWrapper.current!, content: scrollContent.current!,
-        smooth: .65, smoothTouch: .12, effects: false });
+        smooth: 1.1, ease: 'sine.out', smoothTouch: .12, effects: false });
       smoother.current = smooth;
       element.dataset.scrollSystem = 'gsap-smoother';
       let cancelled = false;

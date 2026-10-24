@@ -147,5 +147,48 @@
       "No physical iPhone, actual beta installation, auditory listening or mailbox delivery acceptance.",
       "Optical-flow and reconstructed HD source remain bounded by the original 960x544 generation."
     ]
+  },
+  "anatomyEditAcceptance": {
+    "checkedUTC": "2026-10-24T22:31:26.067980+00:00",
+    "frames": 1778,
+    "editorialCutFrame": 1336,
+    "excludedSourceRangeInclusive": [
+      356,
+      399
+    ],
+    "desktopForwardReverseAcrossCut": true,
+    "portraitNativeReturnAndPetSelection": true,
+    "portraitBuffer": [
+      780,
+      1688
+    ],
+    "noHorizontalOverflow": true,
+    "wrapperFocusScrollPx": 0,
+    "wheelCadence": {
+      "inputDeltaPx": 240,
+      "smoothingSeconds": 1.1,
+      "ease": "sine.out",
+      "sampledDisplayHz": 144.9,
+      "firstFrame": 0,
+      "lastFrame": 76,
+      "uniqueDisplayedFrames": 77,
+      "maxFrameTargetLag": 0,
+      "decodeMsRange": [
+        6.9,
+        22.2
+      ],
+      "scope": "One forward wheel gesture on this local Mac; this is not a universal fps guarantee."
+    },
+    "evidence": [
+      "corrected-family-desktop.png",
+      "corrected-family-mobile.png",
+      "corrected-native-mobile.png",
+      "wheel-sine.json",
+      "wheel-summary.json"
+    ],
+    "limits": [
+      "No physical iPhone acceptance.",
+      "Prior broader fallback, skip and control coverage above used the same runtime before this source edit."
+    ]
   }
 }

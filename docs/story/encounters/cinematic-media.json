@@ -1,5 +1,5 @@
 {
-  "createdUTC": "2026-10-24T21:40:40.268515+00:00",
+  "createdUTC": "2026-10-24T22:27:30.846544+00:00",
   "source": {
     "url": "https://raw.githubusercontent.com/TerminallyLazy/beans-lp/d93019a950d6720824818c7cc3d576201b8999b5/public/assets/story/journey.mp4",
     "sha256": "406f561a957021ef53cecd65b7cdf0b07780f0c94f93d4d053df06183cf5d35f",
@@ -30,7 +30,7 @@
     "release": "20221029",
     "license": "MIT",
     "runtime": "Local M4 Pro / NCNN Vulkan",
-    "sourceSampling": "i * 518 / 1943, clamped to final source pose; tracking uses the exact same sampling positions.",
+    "sourceSampling": "i * 474 / 1778, clamped to final source pose. Samples straddling the editorial cut hold source 355; no neural morph across the cut. Tracking and handset orientation use the same sampling positions.",
     "hashes": {
       "rife-ncnn-vulkan": "d11429c72f0cddfb170fd131ee9373dc5329a5729c4382c0acfd40092e5ed19a",
       "LICENSE": "a73beab18143600af0b10c6050a953ec233775ce31c2bf3373a794db535329fd",
@@ -43,8 +43,8 @@
     "crf": 20,
     "gop": 8,
     "fps": 60,
-    "frames": 1943,
-    "durationSeconds": 32.38333333333333,
+    "frames": 1778,
+    "durationSeconds": 29.633333333333333,
     "desktop": [
       1920,
       1088
@@ -57,13 +57,14 @@
   "visualReview": {
     "agentReviewed": true,
     "ownerApproval": false,
-    "scope": "All 518 restored source frames inspected in 17 numbered contact sheets. Neural interpolation checked at 160 representative poses, processing joins, final frames, and the 64 greatest departures of the rejected MCI candidate. RIFE retains cleaner legs, shoes and sleeve edges. Browser checks recorded separately.",
+    "scope": "The earlier review missed the impossible Human turn identified by the owner. All 44 source frames 356-399 are now excluded. All 118 retained family source frames were inspected in five numbered sheets, plus 125 delivery samples across the film, every eighth family frame, and all cut neighbors. The cut, incoming front-facing family pose and selected walking poses were inspected full size. No neural interpolation is retained across the edit. This is agent review, not owner approval.",
     "evidenceDirectory": "/tmp/beans-cinematic",
     "rejectedCandidates": [
       "FSRCNN delivery replaced for grain/softness",
       "Real-ESRGAN x4plus fallback tested but not selected",
       "Real-ESRGAN anime model rejected for drawn outlines",
-      "FFmpeg MCI 60 fps candidate rejected for sleeve and leg ghosting"
+      "FFmpeg MCI 60 fps candidate rejected for sleeve and leg ghosting",
+      "Original generated family rise/turn (source 356-399) rejected for impossible head/torso anatomy."
     ]
   },
   "limits": [
@@ -71,5 +72,25 @@
     "Intermediate frames are derived, not newly performed character motion.",
     "Not every neural intermediate frame received separate full-resolution visual inspection."
   ],
-  "candidateRecipe": "scripts/prepare-cinematic-film.py"
+  "candidateRecipe": "scripts/prepare-cinematic-film.py",
+  "editorialEdit": {
+    "sourceFrames": 474,
+    "sourceRangesInclusive": [
+      [
+        0,
+        355
+      ],
+      [
+        400,
+        517
+      ]
+    ],
+    "excludedSourceRangeInclusive": [
+      356,
+      399
+    ],
+    "reason": "Owner identified an impossible head/torso turn. Remove the entire rise/turn setup and cut directly from the pony registration to the valid front-facing family walk.",
+    "interpolateAcrossEdit": false,
+    "handsetOrientation": "Authored per delivered frame from retained source IDs; rear during source 400-477, native app after source 478."
+  }
 }
