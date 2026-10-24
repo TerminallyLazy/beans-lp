@@ -176,20 +176,21 @@
       "fps": "16/1",
       "license": "Apache-2.0",
       "review": {
-        "approved": true,
+        "approved": false,
         "anatomy_checked": true,
         "motion_checked": true,
         "video_sha256": "a9d1ec6800faff53b6dcf9e01a05771065bb8ae0feb9793a212f7cb314c593f0",
         "reviewer": "Codex visual review; not owner visual approval",
         "parent_reviews": [
           {
-            "approved": true,
+            "approved": false,
             "anatomy_checked": true,
             "motion_checked": true,
             "video_sha256": "d3fc37f029b31dc21a5c039c47c396db34f585f463bb8eb9c744bf53aef296f5",
             "reviewer": "Codex visual review; not owner visual approval",
             "reviewed_at": "2026-10-24T16:49:37.713640+00:00",
-            "scope": "All 81 decoded frames inspected. Human rises from crouch, camera pulls back and arcs, then Human takes multiple alternating planted steps with a relaxed arm swing. All three pets follow with real gait changes, single attached tails, correct species and stable proportions; four separate pony hooves clear in ending walking stance. Puppy retains coral ball; kitten has attached white paws. Continuous phone contact; device is naturally edge-on/occluded during the camera arc and front-facing again during the final walk. No duplicated character or landscape artifact. Seam from pony ending: 34.37 dB PSNR, mean difference 3.06/255."
+            "scope": "All 81 decoded frames inspected. Human rises from crouch, camera pulls back and arcs, then Human takes multiple alternating planted steps with a relaxed arm swing. All three pets follow with real gait changes, single attached tails, correct species and stable proportions; four separate pony hooves clear in ending walking stance. Puppy retains coral ball; kitten has attached white paws. Continuous phone contact; device is naturally edge-on/occluded during the camera arc and front-facing again during the final walk. No duplicated character or landscape artifact. Seam from pony ending: 34.37 dB PSNR, mean difference 3.06/255.",
+            "supersededReason": "Generated rise/turn fails anatomy. Only global 400-436 retained from this take."
           },
           {
             "approved": true,
@@ -201,35 +202,57 @@
             "scope": "All 81 decoded frames inspected. Human and three pets continue alternating natural steps; Human slows, turns and bends toward them. Camera approaches supported phone in a continuous arc. Human keeps two arms/legs, pets keep attached limbs and one tail each; four distinct pony hooves and four kitten paws in clear ending poses. Coral ball stays in puppy mouth. Hands support the handset throughout; no stray paw or doubled animal. Native screen projection is reviewed separately. Family-walk to family-close seam visually continuous in camera, pose and identity, with 29.78 dB PSNR and mean pixel difference 5.12/255."
           }
         ],
-        "scope": "Every decoded source frame reviewed; remux frame identity proved. Seam review recorded in family-close review."
+        "scope": "Full remux is not approved for release: the owner identified an impossible head/torso turn. Only the edited selection in cinematic-media.json is eligible.",
+        "supersededBy": "cinematic-media.json editorialEdit and cinematic-review.json retained-pose review"
       },
       "tracking": {
         "measured_frames": 56,
         "interpolated_frames": 70,
         "review_required": false,
         "notes": "All visible-plane tiles inspected. Hidden lower corners inferred behind hands, cropped upper corners inferred above frame. No projection on edge-on intervals. Closing glint outlier 47 interpolated from adjacent planes and late bottom edges extended to visible glass support. Browser composite review pending. All geometry tiles reviewed. Native UI projection checked in browser on the full family source at turning frame 9, walking frame 72, corrected turn frame 128 and final frame 161. Fingers, sleeve and bezel retained, no console errors."
-      }
+      },
+      "releaseUse": "Only global source frames 400-517. Original 356-399 rejected for impossible head/torso turn; previous full-performance approval superseded."
     }
   ],
   "webEncode": {
     "codec": "H.264",
     "crf": 20,
-    "gop": 4,
-    "fps": 32,
-    "frames": 1036,
+    "gop": 8,
+    "fps": 60,
+    "frames": 1778,
     "variants": {
       "hd": {
         "width": 1920,
         "height": 1088,
-        "bytes": 72081127
+        "bytes": 75330203
       },
       "base": {
         "width": 960,
         "height": 544,
-        "bytes": 29203696
+        "bytes": 27741785
       }
     },
-    "processing": "clarity-media.json",
-    "review": "All inserted intermediate frames and largest optical-flow departures reviewed separately; no claim of native 1080p generation or owner approval."
+    "processing": "cinematic-media.json",
+    "review": "The earlier review missed the impossible Human turn identified by the owner. All 44 source frames 356-399 are now excluded. All 118 retained family source frames were inspected in five numbered sheets, plus 125 delivery samples across the film, every eighth family frame, and all cut neighbors. The cut, incoming front-facing family pose and selected walking poses were inspected full size. No neural interpolation is retained across the edit. This is agent review, not owner approval."
+  },
+  "editorialEdit": {
+    "sourceFrames": 474,
+    "sourceRangesInclusive": [
+      [
+        0,
+        355
+      ],
+      [
+        400,
+        517
+      ]
+    ],
+    "excludedSourceRangeInclusive": [
+      356,
+      399
+    ],
+    "reason": "Owner identified an impossible head/torso turn. Remove the entire rise/turn setup and cut directly from the pony registration to the valid front-facing family walk.",
+    "interpolateAcrossEdit": false,
+    "handsetOrientation": "Authored per delivered frame from retained source IDs; rear during source 400-477, native app after source 478."
   }
 }

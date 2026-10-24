@@ -9,7 +9,8 @@ export function decodedPresentation<T extends { filmTime: number }>(target: T, d
 
 /** The outward-facing handset is a case during the family walk. App pixels
  * belong only on the close, readable display after the camera turns around. */
-export function phoneFace(frame: number, fps: number, familyStart: number, quad: ScreenQuad | null): 'app' | 'case' {
+export function phoneFace(frame: number, fps: number, familyStart: number, quad: ScreenQuad | null, authoredFaces?: readonly ('app' | 'case')[]): 'app' | 'case' {
+  if (authoredFaces?.[frame]) return authoredFaces[frame];
   if (frame >= familyStart) return frame >= familyStart + 37 / 16 * fps && frame < familyStart + 122 / 16 * fps ? 'case' : 'app';
   if (quad && Math.max(...quad.map(p => p[1])) - Math.min(...quad.map(p => p[1])) < .22) return 'case';
   return 'app';

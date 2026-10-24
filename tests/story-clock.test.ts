@@ -10,7 +10,8 @@ describe('complete encounter clock', () => {
   });
   it('retimes real settling movement while the app registration progresses', () => {
     expect(storyFrame(18.5).filmTime).toBeLessThan(storyFrame(20).filmTime);
-    expect(storyFrame(20).filmTime - storyFrame(18.5).filmTime).toBeCloseTo(.6);
+    expect(storyFrame(20).filmTime - storyFrame(18.5).filmTime).toBeGreaterThan(.3);
+    expect(storyFrame(20).filmTime - storyFrame(18.5).filmTime).toBeLessThan(.6);
     expect(storyFrame(10).filmTime).toBe(8);
     expect(storyFrame(STORY_DURATION).filmTime).toBeCloseTo(42 - 1 / 24);
   });

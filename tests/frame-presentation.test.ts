@@ -23,6 +23,12 @@ describe('decoded story presentation', () => {
 describe('phone face direction', () => {
   const close: ScreenQuad = [[.6,.2],[.8,.2],[.8,.8],[.6,.8]];
   const distant: ScreenQuad = [[.6,.2],[.64,.2],[.64,.3],[.6,.3]];
+  it('uses authored handset orientation after an editorial source cut', () => {
+    const faces = ['app', 'case', 'case', 'app'] as const;
+    expect(phoneFace(1,60,1,close,faces)).toBe('case');
+    expect(phoneFace(2,60,1,close,faces)).toBe('case');
+    expect(phoneFace(3,60,1,close,faces)).toBe('app');
+  });
   it('keeps the app off the outward-facing handset throughout the family walk at either frame rate', () => {
     for (const fps of [16,32]) {
       const start = 356 / 16 * fps;

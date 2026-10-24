@@ -2,8 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollSmoother } from 'gsap/ScrollSmoother';
 import { SplitText } from 'gsap/SplitText';
-import { FilmCompositor } from './film-compositor';
+import { FilmCompositor, type FilmSource } from './film-compositor';
+import type { CachedFilm } from './cached-film';
+import type { PhoneRear } from './phone-rear';
 import { createNativeScreenArt, PETS } from './native-screen-art';
 import { createStoryClock, storyFrame, type AppScreen, type Pet } from './story-clock';
 import { inverseProjection, projectPoint, screenProjection, type ScreenQuad } from './screen-projection';
@@ -13,10 +16,10 @@ import ProductOverview from './ProductOverview';
 import { filmViewport } from './film-viewport';
 import './encounter-landing.css';
 
-gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
+gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother, SplitText);
 const BETA = 'https://testflight.apple.com/join/7WSeN4VB';
-type Track = { width: number; height: number; fps: number; frame_count: number; frames: (ScreenQuad | null)[]; scenes: { id: string; start_frame: number; frames: number }[] };
-type Loaded = { compositor: FilmCompositor; screens: Record<AppScreen, HTMLImageElement>; track: Track; ending: HTMLImageElement };
+type Track = { width: number; height: number; fps: number; frame_count: number; frames: (ScreenQuad | null)[]; faces: ('app' | 'case')[]; scenes: { id: string; start_frame: number; frames: number }[] };
+type Loaded = { compositor: FilmCompositor; screens: Record<AppScreen, HTMLImageElement>; track: Track; ending: HTMLImageElement; cache?: CachedFilm };
 type Delights = ReturnType<typeof import('./story-delights').createStoryDelights>;
 const image = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
   const target = new Image(); target.onload = () => resolve(target); target.onerror = reject; target.src = src;
@@ -31,6 +34,8 @@ const fitFilmSurface = (surface: HTMLCanvasElement) => {
 
 export default function EncounterLanding({ stillFrame = false }: { stillFrame?: boolean }) {
   const root = useRef<HTMLElement>(null), stage = useRef<HTMLDivElement>(null), film = useRef<HTMLVideoElement>(null);
+  const scrollWrapper = useRef<HTMLDivElement>(null), scrollContent = useRef<HTMLDivElement>(null);
+  const smoother = useRef<ScrollSmoother | null>(null);
   const canvas = useRef<HTMLCanvasElement>(null), wildlife = useRef<HTMLCanvasElement>(null), heading = useRef<HTMLHeadingElement>(null);
   const delights = useRef<Delights | null>(null), updateArt = useRef<(() => void) | null>(null);
   const selected = useRef<Pet | null>(null), state = useRef(storyFrame(0));
@@ -44,29 +49,39 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
   useEffect(() => {
     const video = film.current!, surface = canvas.current!, controller = new AbortController();
     const staticView = stillFrame || matchMedia('(prefers-reduced-motion:reduce)').matches;
-    let cancelled = false, compositor: FilmCompositor | undefined;
+    let cancelled = false, compositor: FilmCompositor | undefined, cache: CachedFilm | undefined, rear: PhoneRear | undefined;
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
     const displayedFilmWidth = Math.max(innerWidth, innerHeight * 960 / 544) * Math.min(devicePixelRatio, 2);
     let hd = !staticView && displayedFilmWidth > 960 && !connection?.saveData && !['slow-2g','2g','3g'].includes(connection?.effectiveType || '');
     let rejectMedia: (error: Error) => void = () => {};
-    const mediaReady = staticView ? Promise.resolve() : new Promise<void>((resolve, reject) => {
+    const loadVideo = () => new Promise<void>((resolve, reject) => {
       rejectMedia = reject;
       video.addEventListener('loadeddata', () => resolve(), { once: true, signal: controller.signal });
       video.src = `/assets/story/${hd ? 'journey-hd' : 'journey'}.mp4`;
       video.preload = 'auto';
+      video.load();
     });
+    const mediaReady = staticView ? Promise.resolve() : import('./cached-film').then(async ({ CachedFilm }) => {
+      cache = await CachedFilm.open(hd ? 'journey-hd' : 'journey', controller.signal);
+    }).catch(() => { if (!cancelled) return loadVideo(); });
     Promise.all([
       fetch('/assets/story/journey-track.json', { signal: controller.signal }).then(r => { if (!r.ok) throw new Error('Story tracking unavailable'); return r.json() as Promise<Track>; }),
-      createNativeScreenArt(), image('/assets/story/journey-end.webp'), image('/assets/story/phone-back.webp'), mediaReady, document.fonts.ready,
+      createNativeScreenArt(), image('/assets/story/journey-end.webp'),
+      import('./phone-rear').then(({ PhoneRear }) => {
+        const model = new PhoneRear();
+        if (cancelled) { model.dispose(); return undefined; }
+        rear = model; return model;
+      }).catch(() => undefined), mediaReady, document.fonts.ready,
     ]).then(([track, screens, ending, rear]) => {
       if (cancelled) return;
-      if (track.frames.length !== track.frame_count || track.fps <= 0) throw new Error('Incomplete story tracking');
+      if (track.frames.length !== track.frame_count || track.faces.length !== track.frame_count || track.fps <= 0) throw new Error('Incomplete story tracking');
       createStoryClock(track);
       fitFilmSurface(surface);
       compositor = new FilmCompositor(surface, screens.welcome, rear);
+      root.current!.dataset.phoneRender = rear ? 'geometry' : 'source';
       const rect = surface.getBoundingClientRect();
       compositor.setViewport(filmViewport(rect.width, rect.height, track.width, track.height));
-      compositor.draw(staticView ? ending : video, staticView ? track.frames.at(-1) || null : track.frames[0]); setLoaded({ track, screens, compositor, ending });
+      compositor.draw(staticView ? ending : cache?.get(0) || video, staticView ? track.frames.at(-1) || null : track.frames[0]); setLoaded({ track, screens, compositor, ending, cache });
     }).catch(() => { if (!cancelled) setUnavailable(true); });
     const lost = () => setUnavailable(true);
     const mediaError = () => {
@@ -75,8 +90,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
     };
     surface.addEventListener('webglcontextlost', lost);
     video.addEventListener('error', mediaError, { signal: controller.signal });
-    if (!staticView) video.load();
-    return () => { cancelled = true; controller.abort(); compositor?.dispose(); video.pause(); surface.removeEventListener('webglcontextlost', lost); audio.current?.close(); };
+    return () => { cancelled = true; controller.abort(); cache?.dispose(); if (compositor) compositor.dispose(); else rear?.dispose(); video.pause(); surface.removeEventListener('webglcontextlost', lost); audio.current?.close(); };
   }, [stillFrame]);
 
   useGSAP(() => {
@@ -88,15 +102,18 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
     if (scrollY >= element.offsetTop + stage.current!.offsetHeight) { setSkipped(true); return; }
     const familyStart = track.scenes[4].start_frame;
     let still = false, requested = 0, lastArt = '', disposed = false, active = true;
+    let cached = Boolean(loaded.cache);
+    element.dataset.decoder = cached ? 'frame-cache' : 'video-seek';
     let decoding = state.current, presented = state.current, presentedFrame = 0;
-    const draw = (source?: HTMLVideoElement | HTMLImageElement) => {
+    const draw = (source?: FilmSource, decodedFrame?: number) => {
       if (document.hidden || disposed) return;
+      const began = performance.now();
       if (still) { presented = state.current; presentedFrame = track.frame_count - 1; }
-      else if (source) presentedFrame = Math.min(track.frame_count - 1, Math.max(0, Math.round(video.currentTime * track.fps)));
+      else if (source) presentedFrame = decodedFrame ?? Math.min(track.frame_count - 1, Math.max(0, Math.round(video.currentTime * track.fps)));
       const frame = presentedFrame;
       const key: AppScreen = selected.current && presented.index === 4 ? `${selected.current}-activity` : presented.screen;
       if (key !== lastArt) { compositor.setScreen(screens[key]); lastArt = key; }
-      const face = phoneFace(frame, track.fps, familyStart, track.frames[frame]);
+      const face = phoneFace(frame, track.fps, familyStart, track.frames[frame], track.faces);
       let screenOpacity = 1;
       if (!still) for (let prior = 1; prior <= 3; prior++) {
         if (!track.frames[frame - prior]) screenOpacity = Math.min(screenOpacity, prior / 4);
@@ -116,16 +133,37 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       else if (source) compositor.draw(source, track.frames[frame], screenOpacity, face);
       else compositor.redraw(track.frames[frame], screenOpacity, face);
       element.dataset.frame = String(frame); element.dataset.screen = key;
+      element.dataset.renderMs = (performance.now()-began).toFixed(1);
       element.dataset.screenTracked = track.frames[frame] ? 'true' : 'false';
       element.dataset.phoneFace = face; element.dataset.chapter = presented.shot;
       const end = presented.time >= story.duration - 5;
       setAtEnd(previous => previous === end ? previous : end);
     };
     const seek = () => {
-      if (still || disposed || video.seeking || video.readyState < 2) return;
+      if (still || disposed) return;
+      if (cached && loaded.cache) {
+        const frame = Math.max(0, Math.min(track.frame_count - 1, Math.round(requested * track.fps)));
+        const picture = loaded.cache.nearest(frame);
+        element.dataset.cachedFrames = String(loaded.cache.size);
+        element.dataset.decodeMs = loaded.cache.decodeMs.toFixed(1);
+        if (picture) {
+          presented = story.forFilmFrame(picture.frame, state.current);
+          draw(picture.image, picture.frame);
+        }
+        return;
+      }
+      if (video.seeking || video.readyState < 2) return;
       if (Math.abs(video.currentTime - requested) > .49 / track.fps) { decoding = state.current; video.currentTime = requested; }
       else { presented = state.current; draw(video); }
     };
+    if (loaded.cache) {
+      loaded.cache.onFrames = seek;
+      loaded.cache.onUnavailable = () => {
+        if (disposed) return;
+        cached = false; element.dataset.decoder = 'video-seek'; loaded.cache?.dispose();
+        video.src = loaded.cache!.index.media; video.preload = 'auto'; video.load();
+      };
+    }
     const seeked = () => {
       if (disposed || video.seeking || video.readyState < 2) return;
       const completed = decodedPresentation(state.current, decoding, video.currentTime, track.fps);
@@ -142,6 +180,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       // Seek to presentation timestamps so the decoded picture and its measured
       // phone plane always use the same frame, even during a fast reverse scroll.
       requested = Math.round(state.current.filmTime * track.fps) / track.fps;
+      element.dataset.targetFrame = String(Math.round(requested * track.fps));
       if (state.current.index !== 4 && selected.current) { selected.current = null; setActivePet(null); }
       element.style.setProperty('--story-progress', String(state.current.progress));
       element.dataset.targetChapter = state.current.shot; delights.current?.setProgress(state.current.progress);
@@ -154,7 +193,13 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       if (still) {
         update(story.duration); delights.current?.setEnabled(false); draw(); return;
       }
-      if (video.readyState < 2) { video.preload = 'auto'; video.load(); }
+      if (!cached && video.readyState < 2) { video.preload = 'auto'; video.load(); }
+      // Filter the page and its story together. A second numeric film scrub
+      // would leave the picture catching up after the pinned stage has moved.
+      const smooth = ScrollSmoother.create({ wrapper: scrollWrapper.current!, content: scrollContent.current!,
+        smooth: 1.1, ease: 'sine.out', smoothTouch: .12, effects: false });
+      smoother.current = smooth;
+      element.dataset.scrollSystem = 'gsap-smoother';
       let cancelled = false;
       import('./story-delights').then(({ createStoryDelights }) => {
         if (!cancelled) { try { delights.current = createStoryDelights(wildlife.current!); delights.current.setEnabled(active && !ambientPaused.current); } catch { /* Film and native app stay available without foreground WebGL. */ } }
@@ -162,7 +207,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       const clock = { time: 0 };
       const timeline = gsap.timeline({ scrollTrigger: {
         id: 'beans-encounter-story', trigger: element, pin: stage.current, start: 'top top',
-        end: () => `+=${Math.max(8000, innerHeight * 12)}`, scrub: .22, invalidateOnRefresh: true,
+        end: () => `+=${Math.max(8000, innerHeight * 12)}`, scrub: true, invalidateOnRefresh: true,
         onToggle: self => { active = self.isActive; sectionActive.current = active; delights.current?.setEnabled(active && !ambientPaused.current); },
       }});
       timeline.addLabel('a-little-closer', 0).to(clock, { time: story.duration, duration: story.duration, ease: 'none', onUpdate: () => update(clock.time) }, 0);
@@ -172,10 +217,10 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       timeline.to(stage.current, { '--opening-shade': 0, duration: 1.8 }, .5);
       timeline.to('.story-scroll-cue', { autoAlpha: 0, duration: .6 }, .3);
       update(0);
-      return () => { cancelled = true; split.revert(); delights.current?.dispose(); delights.current = null; };
+      return () => { cancelled = true; split.revert(); delights.current?.dispose(); delights.current = null; smooth.kill(); smoother.current = null; };
     });
     ScrollTrigger.refresh();
-    return () => { disposed = true; resize.disconnect(); mm.revert(); element.style.removeProperty('--story-progress'); updateArt.current = null; video.removeEventListener('seeked', seeked); video.removeEventListener('loadeddata', seeked); document.removeEventListener('visibilitychange', visibility); video.pause(); };
+    return () => { disposed = true; if (loaded.cache) { loaded.cache.onFrames = undefined; loaded.cache.onUnavailable = undefined; } resize.disconnect(); mm.revert(); element.style.removeProperty('--story-progress'); updateArt.current = null; video.removeEventListener('seeked', seeked); video.removeEventListener('loadeddata', seeked); document.removeEventListener('visibilitychange', visibility); video.pause(); };
   }, { scope: root, dependencies: [loaded, unavailable, stillFrame, skipped], revertOnUpdate: true });
 
   const chime = () => {
@@ -207,17 +252,24 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
     const current = selected.current || state.current.screen;
     choose(PETS[(PETS.findIndex(p => current.startsWith(p.id)) + 1) % PETS.length].id);
   };
+  const goHome = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    if (smoother.current) smoother.current.scrollTo(0, false);
+    else scrollTo(0, 0);
+    setSkipped(false);
+  };
 
   return <>
-    <a className="skip-link" href="#join" onClick={() => { ScrollTrigger.getById('beans-encounter-story')?.kill(true); setSkipped(true); }}>Skip the story</a>
+    <a className="skip-link" href="#join" onClick={() => { ScrollTrigger.getById('beans-encounter-story')?.kill(true); smoother.current?.kill(); setSkipped(true); }}>Skip the story</a>
+    <div className="encounter-scroll-wrapper" ref={scrollWrapper}><div ref={scrollContent}>
     <main className="encounter-story" id="hero" data-ready={Boolean(loaded && !unavailable && !skipped) || undefined} data-snapshot={stillFrame || undefined} data-fallback={unavailable || undefined} ref={root}>
       <div className="encounter-stage" ref={stage}>
         <header className="encounter-header">
-          <a href="#hero" className="encounter-brand" aria-label="Beans home" onClick={event => { if (skipped) scrollTo(0, 0); setSkipped(false); if (++taps.current % 3 === 0) { event.preventDefault(); flourish(); } }}><img src="/assets/beans-logo-light.webp" alt="Beans" width="142" height="38" /></a>
+          <a href="#hero" className="encounter-brand" aria-label="Beans home" onClick={event => { goHome(event); if (++taps.current % 3 === 0) flourish(); }}><img src="/assets/beans-logo-light.webp" alt="Beans" width="142" height="38" /></a>
           <a className="quiet-beta" href={BETA}>Join the beta <span aria-hidden="true">↗</span></a>
         </header>
         <div className="encounter-picture">
-          <video className="story-video-source" ref={film} src="/assets/story/journey.mp4" preload="none" muted playsInline aria-hidden="true" />
+          <video className="story-video-source" ref={film} preload="none" muted playsInline aria-hidden="true" />
           <canvas ref={canvas} onPointerDown={phoneTap} className="story-film" role="img" aria-hidden={!loaded || unavailable || skipped} aria-label="The Beans Human meets a playful kitten, a puppy with a ball, and a pony. They join his family in the Beans app and walk together." />
           {(!loaded || unavailable || skipped) && <picture><source media="(prefers-reduced-motion:reduce)" srcSet="/assets/story/journey-poster.webp" /><img className="story-poster" src="/assets/story/journey-start.webp" alt="Beans characters on a sunlit meadow path." /></picture>}
         </div>
@@ -244,10 +296,11 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       </div>
       <a className="beta-qr" href={BETA} aria-label="Open the Beans public beta"><img src="/assets/story/beans-public-beta-qr.svg" alt="QR code for the Beans public beta" width="132" height="132" /></a>
     </section>
-    <footer className="beans-footer"><a href="#hero" aria-label="Beans home" onClick={() => { if (skipped) scrollTo(0, 0); setSkipped(false); }}><img src="/assets/beans-logo-light.webp" alt="Beans" width="111" height="30" /></a>
+    <footer className="beans-footer"><a href="#hero" aria-label="Beans home" onClick={goHome}><img src="/assets/beans-logo-light.webp" alt="Beans" width="111" height="30" /></a>
       <nav aria-label="Footer"><a href="mailto:contact@petswithbeans.com">Contact</a><a href="https://beans-api-omega.vercel.app/support">Support</a><a href="https://beans-api-omega.vercel.app/privacy">Privacy</a></nav>
       <small>© {new Date().getFullYear()} Beans</small>
     </footer>
     </div>
+    </div></div>
   </>;
 }

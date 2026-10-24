@@ -2,7 +2,7 @@
 
 Build briefs for the **Beans Pet and Equine Care** landing page, adapted from the Beans iOS app.
 
-The website uses React, TypeScript and Vite. A native-scroll GSAP/ScrollTrigger timeline follows the Beans Human as he meets a kitten, a puppy and a pony. The original build briefs remain below; the owner's current story direction and acceptance status are recorded in [landing production](docs/story/encounters/landing-production.md).
+The website uses React, TypeScript and Vite. A GSAP ScrollSmoother/ScrollTrigger timeline follows the Beans Human as he meets a kitten, a puppy and a pony. The original build briefs remain below; the owner's current story direction and acceptance status are recorded in [landing production](docs/story/encounters/landing-production.md).
 
 ## Run locally
 
@@ -17,19 +17,21 @@ Deployment uses `npm run build:release`. It verifies reviewed media hashes, all 
 
 ## Current implementation
 
-One ScrollTrigger pins the story stage and scrubs a reversible clock derived from the delivered film's actual frame rate. Each completed decode is presented with its matching phone plane and app state before seeking the newest requested position. The film renders directly at the visible viewport resolution, without enlarging a separate landscape canvas on phones. Registration and pet selection reverse with the story. The phone's glass receives native Beans app captures through a per-frame homography that preserves the performed hands, bezels, lighting and occlusion.
+One ScrollSmoother filters native page scrolling with 1.1-second sine easing and one ScrollTrigger pins the story stage. A reversible 60 fps clock drives the film, copy, camera crop and foreground choreography together, without a second numeric film scrub. A worker decodes bounded MP4 windows into transferable VideoFrames; a 96 MiB frame cache and 12 MiB encoded look-ahead support immediate reversals without repeatedly seeking a video element. Browsers without supported WebCodecs use the HTML video path. Each displayed picture stays paired with its measured phone plane and app state. Settling beats retain continuous speed at chapter joins.
 
 App views come from an isolated native simulator build using synthetic fixtures, including the logo, My Pets / Beans / Organizer navigation, onboarding forms and recorded activity. The website never opens an owner account or changes actual pet records. Capture provenance is in [native captures](docs/story/encounters/native-captures.json).
 
 Character motion is generated 3D-rendered footage, not runtime skinned character meshes. Nine Three.js butterflies have articulated wings, depth, pointer-aware flight and a three-tap Beans-logo flourish. Sound is optional and off initially. Reduced motion uses a static final composition without pinning or flight. There is no start gate, website eyebrow, decorative footnote or serif/italic heading split. Website headings use upright Manrope.
 
-A concise feature section follows the story, with copy checked against the current iOS source. The beta and footer occupy at least a full viewport at the end, so no hero strip remains. Pet-picker artwork has genuine transparency. The phone rear uses a generated material-and-camera texture on the measured plane; the source film retains hands and edges.
+A concise feature section follows the story, with copy checked against the current iOS source. The beta and footer occupy at least a full viewport at the end, so no hero strip remains. Pet-picker artwork has genuine transparency. The phone rear is now a Three.js hard-surface model with thickness, raised camera hardware, metal and glass materials, reflections and shadows. Its pose follows the measured plane; source footage retains the performed hands and edges.
 
 The beta link and QR point to the public Apple TestFlight invitation. The footer links to contact@petswithbeans.com and the app's support and privacy pages. Vercel project `beans-lp` owns the verified `www.petswithbeans.com` domain; IONOS mail records are preserved.
 
 ## Media review status
 
-H3 footage was excluded after its license review. The replacement pipeline uses Apache-licensed Wan models and source-faithful original keyframes. Corrected kitten, pony and family references have been inspected for limb and tail placement. The first two replacement phone takes were rejected for rendering artifacts. The standard four-step profile with PyTorch INT8 math produced clean full-size footage. All six generated performances have completed decoded-frame review. The two family takes are remuxed into the fifth story chapter, with decoded-frame identity verified. The reviewed 518-frame, 16 fps source is delivered as 1,036 frames at 32 fps, with reviewed optical-flow intermediate frames and an FSRCNN x2 HD variant. HD selection accounts for the actual crop and pixel density; Save Data and slower connections use the smaller film. This is reconstructed source detail, not newly rendered native 1080p footage. No rejected take is eligible for deployment.
+H3 footage was excluded after its license review. The replacement pipeline uses Apache-licensed Wan models and source-faithful original keyframes. Corrected kitten, pony and family references were inspected for limb and tail placement. The owner subsequently identified an impossible Human head/torso turn missed by the initial review. The entire rise/turn setup (original source frames 356–399) is now excluded. A clean editorial cut joins the pony registration to the valid front-facing family walk; neural interpolation never crosses that cut.
+
+The retained 474 frames at 16 fps are restored with FlashVSR+ Base and delivered as 1,778 frames at 60 fps using RIFE. The HD variant is 1920×1088; the smaller variant is 960×544. The retained family source poses and 125 new delivery samples were inspected, including exact cut neighbors and selected full-size walking poses. See [cinematic media](docs/story/encounters/cinematic-media.json) for pinned code/model revisions, hashes and review scope. HD selection accounts for crop and pixel density; Save Data and slower connections use the smaller film. This is reconstructed source detail, not newly rendered native 1080p footage. Agent review is not owner visual approval.
 
 Historical exploration, Muse drafts, earlier layouts and retired handset rendering remain in local audit material. Their tests and screenshots do not establish acceptance of the current film. See [landing production](docs/story/encounters/landing-production.md) for the current remaining checks.
 
@@ -73,7 +75,7 @@ Preserve the website's existing stack and conventions. If no implementation exis
 | BSMNT Scrollytelling | Optional React abstraction over GSAP ScrollTrigger for suitable scrubbed sections |
 | Three.js / Interactive 3D Lab | Three.js renders the articulated foreground butterflies; the lab remains a reference |
 
-**Use one scroll system.** The current story uses native scrolling and ScrollTrigger. Do not combine Locomotive Scroll, an independent Lenis instance, and ScrollSmoother.
+**Use one scroll system.** The current story uses native scrolling filtered by GSAP ScrollSmoother, with one ScrollTrigger story clock. Do not combine Locomotive Scroll, an independent Lenis instance, and ScrollSmoother.
 
 Official documentation and repository links are included in the [shared brief](prompts/shared/gsap-implementation.md#documentation-and-implementation-references).
 
@@ -88,4 +90,4 @@ Official documentation and repository links are included in the [shared brief](p
 
 ## Validation boundaries
 
-TypeScript, ESLint, the production preview build and twenty-four focused code tests pass for the current implementation. Typography has been checked at desktop and 390-pixel widths. Native screens have been captured and verified in the isolated simulator. Complete decoded-frame and tracking review has passed. The production preview has been checked through forward/reverse scrolling, mobile framing at 320 and 390 pixels, pet selection, native phone taps, reduced motion, keyboard skipping and blocked-video fallback. Public deployment acceptance is recorded separately after release. Desktop Safari and Chromium mobile emulation have been checked. Physical iPhone acceptance is not claimed. No submission backend or email-delivery test is claimed.
+TypeScript, ESLint, the production preview build and twenty-seven focused code tests pass for the current implementation. Typography has been checked at desktop and 390-pixel widths. Native screens have been captured and verified in the isolated simulator. Complete decoded-frame and tracking review has passed. The production preview has been checked through forward/reverse scrolling, mobile framing at 320 and 390 pixels, pet selection, native phone taps, reduced motion, keyboard skipping and blocked-video fallback. Public deployment acceptance is recorded separately after release. Desktop Safari and Chromium mobile emulation have been checked. Physical iPhone acceptance is not claimed. No submission backend or email-delivery test is claimed.

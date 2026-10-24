@@ -12,6 +12,20 @@ export const STORY_DURATION = STORY_SHOTS.reduce((sum, shot) => sum + shot.secon
 type StoryShot = { id: typeof STORY_SHOTS[number]['id']; seconds: number; hold: number };
 type FilmTiming = { fps: number; frame_count: number; scenes: { id: string; start_frame: number; frames: number }[] };
 
+/** Retain velocity at both ends of a settling beat. Hard linear retiming made
+ * every registration feel like a sudden brake followed by an acceleration. */
+export function settlingTime(time: number, performed: number, hold: number) {
+  const span = performed + hold, t = Math.max(0, Math.min(span, time));
+  if (hold <= 0) return t;
+  const ramp = Math.min(.7, performed * .35);
+  const slow = (performed - ramp) / (span - ramp);
+  const first = (u: number) => slow * u + (1 - slow) * (u / 2 + ramp / (2 * Math.PI) * Math.sin(Math.PI * u / ramp));
+  if (t < ramp) return first(t);
+  if (t <= span - ramp) return first(ramp) + slow * (t - ramp);
+  // Symmetry gives the final camera approach the same continuous speed ramp.
+  return performed - first(span - t);
+}
+
 /** Derive the story from the delivered film rather than assuming a model's frame rate. */
 export function createStoryClock(film: FilmTiming) {
   if (!Number.isFinite(film.fps) || film.fps <= 0 || film.scenes.length !== STORY_SHOTS.length) throw new Error('Invalid film timing.');
@@ -26,7 +40,18 @@ export function createStoryClock(film: FilmTiming) {
     return shot;
   });
   if (nextFrame !== film.frame_count) throw new Error('Story scenes do not cover the delivered film.');
-  return { duration: nextStoryTime, labels, frame: (time: number) => frameAt(time, shots, film.fps, nextStoryTime) };
+  const sample = (time: number) => frameAt(time, shots, film.fps, nextStoryTime);
+  return { duration: nextStoryTime, labels, frame: sample,
+    forFilmFrame: (frame: number, hint: ReturnType<typeof frameAt>) => {
+      if (Math.round(hint.filmTime * film.fps) === frame) return hint;
+      let low = 0, high = nextStoryTime;
+      for (let i=0;i<32;i++) {
+        const middle = (low+high)/2;
+        if (Math.round(sample(middle).filmTime * film.fps) < frame) low = middle; else high = middle;
+      }
+      return sample(high);
+    },
+  };
 }
 
 /** A reversible clock: registration has no hidden state and never changes a real account. */
@@ -51,7 +76,7 @@ function frameAt(input: number, shots: readonly StoryShot[], fps: number, durati
       // Give registration room by slowing the performed settling beat, retaining breathing,
       // ears and butterfly motion instead of freezing a character into a cutout.
       const settlingLength = Math.min(2, shot.seconds / 2), settlingStart = shot.seconds - settlingLength;
-      const filmLocal = local < settlingStart ? local : settlingStart + (local - settlingStart) * settlingLength / (settlingLength + shot.hold);
+      const filmLocal = local < settlingStart ? local : settlingStart + settlingTime(local - settlingStart, settlingLength, shot.hold);
       return { time, shot: shot.id, index, local, held, screen,
         filmTime: filmStart + Math.min(shot.seconds - 1 / fps, Math.max(0, filmLocal)),
         petCount: Math.min(3, Math.max(0, index - 1) + (index > 0 && index < 4 && held >= 1.8 ? 1 : 0)),
