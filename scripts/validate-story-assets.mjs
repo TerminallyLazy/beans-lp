@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 const root = new URL('../', import.meta.url);
 const release = JSON.parse(await readFile(new URL('docs/story/encounters/release-media.json', root), 'utf8'));
 if (!release.agentVisualReviewComplete) throw new Error('Story media has not completed visual review.');
-for (const path of ['journey.mp4', 'journey-hd.mp4', 'journey-track.json', 'journey-start.webp', 'journey-end.webp', 'journey-poster.webp', 'phone-back.webp', 'pets/cat.webp', 'pets/dog.webp', 'pets/horse.webp']) {
+for (const path of ['journey.mp4', 'journey-hd.mp4', 'journey.index.json', 'journey-hd.index.json', 'journey-track.json', 'journey-start.webp', 'journey-end.webp', 'journey-poster.webp', 'pets/cat.webp', 'pets/dog.webp', 'pets/horse.webp']) {
   if (!release.files[`public/assets/story/${path}`]) throw new Error(`Missing reviewed release asset: ${path}`);
 }
 for (const [path, expected] of Object.entries(release.files)) {
@@ -22,8 +22,19 @@ for (const [index, id] of ['phone', 'kitten', 'puppy', 'pony', 'family'].entries
 }
 if (offset !== release.frameCount || track.scenes.length !== 5) throw new Error('Scene timing does not cover the film.');
 for (const quad of track.frames) if (quad && (quad.length !== 4 || quad.some(p => p.length !== 2 || p.some(v => !Number.isFinite(v))))) throw new Error('Malformed phone plane.');
+for (const name of ['journey','journey-hd']) {
+  const index = JSON.parse(await readFile(new URL(`public/assets/story/${name}.index.json`, root),'utf8'));
+  const film = release.files[`public/assets/story/${name}.mp4`];
+  if (index.version !== 1 || index.media !== `/assets/story/${name}.mp4` || index.sha256 !== film.sha256 || index.bytes !== film.bytes || index.fps !== track.fps || index.packets.length !== track.frame_count || !index.codec.startsWith('avc1.') || !index.packets[0][4]) throw new Error(`Film index differs from reviewed media: ${name}`);
+  const frames = new Set();
+  for (const [offset,bytes,timestamp,duration,key] of index.packets) {
+    const frame = Math.round(timestamp/1e6*index.fps);
+    if (![offset,bytes,timestamp,duration,key].every(Number.isFinite) || offset < 0 || bytes < 1 || offset+bytes > index.bytes || duration <= 0 || ![0,1].includes(key) || frame < 0 || frame >= track.frame_count || frames.has(frame)) throw new Error(`Malformed indexed film packet: ${name}`);
+    frames.add(frame);
+  }
+}
 const nativeScreens = ['welcome','empty','add-cat','add-dog','add-horse','cat','dog','horse','cat-activity','dog-activity','horse-activity','family-menu'].map(name => `story/native/${name}.webp`);
-for (const path of ['beans-logo-light.webp','beans-mark-light.png','fonts/manrope-variable.ttf','story/phone-back.webp','story/pets/cat.webp','story/pets/dog.webp','story/pets/horse.webp','story/apple-testflight.png','story/beans-public-beta-qr.svg',...nativeScreens]) {
+for (const path of ['beans-logo-light.webp','beans-mark-light.png','fonts/manrope-variable.ttf','story/pets/cat.webp','story/pets/dog.webp','story/pets/horse.webp','story/apple-testflight.png','story/beans-public-beta-qr.svg',...nativeScreens]) {
   if ((await stat(new URL(`public/assets/${path}`, root))).size < 100) throw new Error(`Missing runtime artwork: ${path}`);
 }
 console.log(`Verified ${Object.keys(release.files).length} reviewed media assets and ${release.frameCount} tracking frames.`);

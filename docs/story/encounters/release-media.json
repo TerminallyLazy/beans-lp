@@ -1,10 +1,10 @@
 {
-  "createdUTC": "2026-10-24T19:42:01.590276+00:00",
+  "createdUTC": "2026-10-24T21:49:56.865237+00:00",
   "agentVisualReviewComplete": true,
   "ownerVisualApproval": false,
   "browserAcceptanceComplete": true,
-  "fps": 32,
-  "frameCount": 1036,
+  "fps": 60,
+  "frameCount": 1943,
   "files": {
     "public/assets/animation/cat-light-poster.webp": {
       "sha256": "aa83444e985ea21f5fdc672b756dd4ce078f43d3932941ed7e4fd50fd7dd14c1",
@@ -43,24 +43,24 @@
       "bytes": 2545
     },
     "public/assets/story/journey-end.webp": {
-      "sha256": "4a791a4147fb5d477ad9e33ea877bb5e8ffbbfa7f4dc28d63760fc2e1c848b54",
-      "bytes": 381102
+      "sha256": "cc355b6bc013b64cc665c099a548ea13972ab88a316c486c5a715f1774215d7b",
+      "bytes": 467514
     },
     "public/assets/story/journey-poster.webp": {
-      "sha256": "e2fd47db4461ccd5911c03c92c30bc32222fe6799688df25f52633502922b668",
-      "bytes": 391826
+      "sha256": "4f0a9ad0c2c39adbd2bc1a74ca3a395567a21cb1f15f248a9d46536ee0a78411",
+      "bytes": 476274
     },
     "public/assets/story/journey-start.webp": {
-      "sha256": "48a1f9c3d6f87fc94a8e419547e7f315a79221560389ad59ca61cb4e287c03c7",
-      "bytes": 288958
+      "sha256": "ca123f0dcf9b94902a522b4988f784c75ad54b0d060ed0edbcd03a4e090ddc82",
+      "bytes": 371148
     },
     "public/assets/story/journey-track.json": {
-      "sha256": "7b09de22e1e55942f2970daaff76dbc5e8ad20b4ad82c94d93bba96b80ef37e8",
-      "bytes": 87138
+      "sha256": "1e5592110f5170618140d23f134be03eb2ea471a0f1bd2464cf1bec2114f5893",
+      "bytes": 262082
     },
     "public/assets/story/journey.mp4": {
-      "sha256": "172f8a3f3fd14a12192d9bed097cc6cb5dc8d1793bf970c7c56519322d6353e6",
-      "bytes": 29203696
+      "sha256": "818efc7d85a54c45bdc3f41013ab23ead3878f9c9b086996c43586e30cd4d87a",
+      "bytes": 30870837
     },
     "public/assets/story/native/add-cat.webp": {
       "sha256": "8335fe3540037c77f96e5022503986c61023546ea46dd5e31da813c45239e453",
@@ -111,8 +111,8 @@
       "bytes": 157686
     },
     "public/assets/story/journey-hd.mp4": {
-      "sha256": "ddd56eefb6f16358647bf3721338553a94d58199fc14260a88d7aa4f0c755943",
-      "bytes": 72081127
+      "sha256": "81cfb8049164112c2d9d078eb11a6329389aebcbb180cb8e2afa69fe461ae7e3",
+      "bytes": 83637689
     },
     "public/assets/story/phone-back.webp": {
       "sha256": "edf25563584f6fa8c1345a7f657725c1f1e2c1b658a991eeb42855a7bee8ddb2",
@@ -129,6 +129,14 @@
     "public/assets/story/pets/horse.webp": {
       "sha256": "ef28adc02aa79bf11df427cf2bae376ea713f91c2238f50c4f2413f0072c0468",
       "bytes": 26000
+    },
+    "public/assets/story/journey.index.json": {
+      "sha256": "6148b60180c3536f8211e3fd9d6ec3ad55be14b73bee7d3fd0bdaded525c76d1",
+      "bytes": 63213
+    },
+    "public/assets/story/journey-hd.index.json": {
+      "sha256": "32bc0348bfe7f8cd751ceb0cef0a5660b8cd1a90f4adaf3afdc91962fdaae7b8",
+      "bytes": 64767
     }
   },
   "sourceReviews": "selected-sources.json",
@@ -144,5 +152,6 @@
   "clarityProcessing": "clarity-media.json",
   "phoneRear": "phone-back-art.json",
   "transparentPets": "transparent-pets.json",
-  "productCopy": "product-copy-provenance.json"
+  "productCopy": "product-copy-provenance.json",
+  "processing": "cinematic-media.json"
 }

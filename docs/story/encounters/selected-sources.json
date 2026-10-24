@@ -214,22 +214,22 @@
   "webEncode": {
     "codec": "H.264",
     "crf": 20,
-    "gop": 4,
-    "fps": 32,
-    "frames": 1036,
+    "gop": 8,
+    "fps": 60,
+    "frames": 1943,
     "variants": {
       "hd": {
         "width": 1920,
         "height": 1088,
-        "bytes": 72081127
+        "bytes": 83637689
       },
       "base": {
         "width": 960,
         "height": 544,
-        "bytes": 29203696
+        "bytes": 30870837
       }
     },
-    "processing": "clarity-media.json",
-    "review": "All inserted intermediate frames and largest optical-flow departures reviewed separately; no claim of native 1080p generation or owner approval."
+    "processing": "cinematic-media.json",
+    "review": "All 518 restored source frames inspected in 17 numbered contact sheets. Neural interpolation checked at 160 representative poses, processing joins, final frames, and the 64 greatest departures of the rejected MCI candidate. RIFE retains cleaner legs, shoes and sleeve edges. Browser checks recorded separately."
   }
 }
