@@ -1,10 +1,10 @@
 {
-  "createdUTC": "2026-10-24T17:57:06.331042+00:00",
+  "createdUTC": "2026-10-24T19:42:01.590276+00:00",
   "agentVisualReviewComplete": true,
   "ownerVisualApproval": false,
   "browserAcceptanceComplete": true,
-  "fps": 16,
-  "frameCount": 518,
+  "fps": 32,
+  "frameCount": 1036,
   "files": {
     "public/assets/animation/cat-light-poster.webp": {
       "sha256": "aa83444e985ea21f5fdc672b756dd4ce078f43d3932941ed7e4fd50fd7dd14c1",
@@ -43,24 +43,24 @@
       "bytes": 2545
     },
     "public/assets/story/journey-end.webp": {
-      "sha256": "3c170f32dbbff885222ac59bed80c8a04ef9a7d8cec697e394333552016f759e",
-      "bytes": 145746
+      "sha256": "4a791a4147fb5d477ad9e33ea877bb5e8ffbbfa7f4dc28d63760fc2e1c848b54",
+      "bytes": 381102
     },
     "public/assets/story/journey-poster.webp": {
-      "sha256": "afdcc2c723c1a0583e4159470d10477bb04e5ed964fdf911153235ca2e42b806",
-      "bytes": 347212
+      "sha256": "e2fd47db4461ccd5911c03c92c30bc32222fe6799688df25f52633502922b668",
+      "bytes": 391826
     },
     "public/assets/story/journey-start.webp": {
-      "sha256": "eb238b71bb290279075cc87e2706b85882944c7bb0d81e8ad99562c8f7b3f0ea",
-      "bytes": 108702
+      "sha256": "48a1f9c3d6f87fc94a8e419547e7f315a79221560389ad59ca61cb4e287c03c7",
+      "bytes": 288958
     },
     "public/assets/story/journey-track.json": {
-      "sha256": "57053d114d8cf4917ff4a0f20911da2d419e9efac3255e9c4eb08c3c9793a49d",
-      "bytes": 39363
+      "sha256": "7b09de22e1e55942f2970daaff76dbc5e8ad20b4ad82c94d93bba96b80ef37e8",
+      "bytes": 87138
     },
     "public/assets/story/journey.mp4": {
-      "sha256": "406f561a957021ef53cecd65b7cdf0b07780f0c94f93d4d053df06183cf5d35f",
-      "bytes": 18345133
+      "sha256": "172f8a3f3fd14a12192d9bed097cc6cb5dc8d1793bf970c7c56519322d6353e6",
+      "bytes": 29203696
     },
     "public/assets/story/native/add-cat.webp": {
       "sha256": "8335fe3540037c77f96e5022503986c61023546ea46dd5e31da813c45239e453",
@@ -109,6 +109,26 @@
     "public/assets/story/native/welcome.webp": {
       "sha256": "c2765bca81df81c48b0362c62ed0a18688720612637773eeaa80765513f61ff8",
       "bytes": 157686
+    },
+    "public/assets/story/journey-hd.mp4": {
+      "sha256": "ddd56eefb6f16358647bf3721338553a94d58199fc14260a88d7aa4f0c755943",
+      "bytes": 72081127
+    },
+    "public/assets/story/phone-back.webp": {
+      "sha256": "edf25563584f6fa8c1345a7f657725c1f1e2c1b658a991eeb42855a7bee8ddb2",
+      "bytes": 91406
+    },
+    "public/assets/story/pets/cat.webp": {
+      "sha256": "670202b6347afdb5a33c2f7ec53ae2967e2a7c2defbd843bb04d0d56abfc674f",
+      "bytes": 29230
+    },
+    "public/assets/story/pets/dog.webp": {
+      "sha256": "1f718789618fdc97bba63fa54546ad86b86107dfbb4a36f68f56ce1d9f848abe",
+      "bytes": 33688
+    },
+    "public/assets/story/pets/horse.webp": {
+      "sha256": "ef28adc02aa79bf11df427cf2bae376ea713f91c2238f50c4f2413f0072c0468",
+      "bytes": 26000
     }
   },
   "sourceReviews": "selected-sources.json",
@@ -116,8 +136,13 @@
   "browserEvidence": "browser-acceptance.json",
   "characterTechnique": "Conditioned 3D-rendered video performances; foreground butterflies are runtime articulated Three.js meshes.",
   "limits": [
-    "Chromium browser rendering checked; no physical iPhone or Safari acceptance claimed.",
+    "Chromium desktop/mobile emulation and macOS Safari checked; no physical iPhone acceptance claimed.",
+    "HD is FSRCNN reconstruction from 960x544 source; intermediate motion frames use optical flow.",
     "Activity screens use isolated native synthetic records, not live tracking.",
     "No email delivery or physical beta install test performed."
-  ]
+  ],
+  "clarityProcessing": "clarity-media.json",
+  "phoneRear": "phone-back-art.json",
+  "transparentPets": "transparent-pets.json",
+  "productCopy": "product-copy-provenance.json"
 }

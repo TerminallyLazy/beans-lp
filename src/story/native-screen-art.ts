@@ -1,9 +1,9 @@
 import type { AppScreen, Pet } from './story-clock';
 
 export const PETS: { id: Pet; name: string; species: string; image: string }[] = [
-  { id: 'cat', name: 'Cleo', species: 'Cat', image: '/assets/animation/cat-light-poster.webp' },
-  { id: 'dog', name: 'Willow', species: 'Dog', image: '/assets/animation/dog-light-poster.webp' },
-  { id: 'horse', name: 'Bert', species: 'Horse', image: '/assets/animation/horse-light-poster.webp' },
+  { id: 'cat', name: 'Cleo', species: 'Cat', image: '/assets/story/pets/cat.webp' },
+  { id: 'dog', name: 'Willow', species: 'Dog', image: '/assets/story/pets/dog.webp' },
+  { id: 'horse', name: 'Bert', species: 'Horse', image: '/assets/story/pets/horse.webp' },
 ];
 
 const NATIVE_SCREENS: Record<AppScreen, string> = {

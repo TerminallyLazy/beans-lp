@@ -1,0 +1,8 @@
+{
+  "tool": "built-in image_gen",
+  "source": "/Users/lazy/.codex/generated_images/01a16c65-d6bc-73e0-8e3f-1e8597a3496d/exec-7223fc5b-e740-4c1a-bb78-b9643b2f9e34.png",
+  "asset": "public/assets/story/phone-back.webp",
+  "sha256": "edf25563584f6fa8c1345a7f657725c1f1e2c1b658a991eeb42855a7bee8ddb2",
+  "prompt": "Full-bleed orthographic pearl titanium smartphone rear panel, physical raised diagonal dual sapphire camera lenses and metal rings, realistic contact shadows and reflections. No logos, UI, margin, surrounding backdrop, perspective tilt or illustrated dots.",
+  "use": "Perspective-projected material for the outward-facing handset; original film retains hand occlusion, bezel, silhouette and scene illumination. Not a runtime skinned or independently modeled phone."
+}

@@ -1,0 +1,35 @@
+{
+  "checkedUTC": "2026-10-24T19:42:01.590276+00:00",
+  "appCommit": "7898d47912ced2fcb732c4a690691acff5a05974",
+  "repository": "Beans-iOS",
+  "claims": [
+    {
+      "heading": "One home for every animal.",
+      "evidence": [
+        "BeansVet/Sources/App/BeansRootView.swift:100",
+        "BeansVet/Sources/Features/BeansMyPetsView.swift:36",
+        "BeansVet/Sources/Features/BeansMyPetsView.swift:40",
+        "BeansVet/Sources/Features/BeansMyPetsView.swift:123"
+      ]
+    },
+    {
+      "heading": "A little help finding the words.",
+      "evidence": [
+        "BeansVet/Sources/App/BeansRootView.swift:116",
+        "BeansVet/Sources/Conversation/BeansConversationEntryView.swift:23",
+        "BeansVet/Sources/Conversation/BeansConversationEntryView.swift:99",
+        "BeansVet/Sources/Features/BeansOrganizerInsightsView.swift:263"
+      ]
+    },
+    {
+      "heading": "Small moments. A clearer picture.",
+      "evidence": [
+        "BeansVet/Sources/Features/BeansOrganizerInsightsView.swift:100",
+        "BeansVet/Sources/Features/BeansOrganizerInsightsView.swift:109",
+        "BeansVet/Sources/Features/BeansOrganizerInsightsView.swift:246",
+        "BeansVet/Sources/Features/BeansOrganizerInsightsView.swift:257"
+      ]
+    }
+  ],
+  "scope": "Source review for concise feature copy only. No clinical targets, outcomes, live tracking or private records introduced."
+}

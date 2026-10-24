@@ -1,42 +1,93 @@
 {
-  "checkedUTC": "2026-10-24T17:57:06.331042+00:00",
+  "checkedUTC": "2026-10-24T19:44:35.252018+00:00",
   "localProductionURL": "http://127.0.0.1:4173/",
   "checks": {
-    "desktopForwardStory": true,
-    "fastForwardReverseFinalEncode": true,
+    "desktopForwardReverse32fps": true,
+    "rapidTargetChangePresentsCompletedDecode": true,
+    "outwardPhoneRearAndFrontReturn": true,
+    "macOSSafariForwardReverse": true,
+    "macOSSafariPetSelection": true,
     "allThreePetSelections": true,
-    "phoneTapDesktopAndMobile": true,
-    "pauseButterflies": true,
-    "optInSoundControl": true,
+    "phoneTapMobile": true,
+    "transparentPetArtwork": true,
     "mobileWidths": [
       320,
       390
     ],
+    "retinaPortraitHDSelection": true,
+    "shortLandscape": [
+      844,
+      280
+    ],
     "noHorizontalOverflow": true,
-    "mobileArrivalFraming": true,
-    "nativeRegistrationScreenReadability": true,
+    "fullWhiteFinishDesktopAndMobile": true,
+    "conciseProductOverview": true,
     "reducedMotionNoPin": true,
     "reducedMotionVideoReadyState": 0,
     "keyboardSkipFocus": "join",
     "keyboardSkipRemovesPin": true,
     "homeRestoresStory": true,
-    "blockedVideoFallback": true,
+    "blockedHDFallsBackToBase": true,
+    "blockedAllVideoNoPinAndBetaAvailable": true,
     "temporaryBrowserOverridesRestored": true,
-    "threeTapLogoFlourish": true
+    "consoleErrorsInNormalFlow": 0
   },
+  "evidenceDirectory": "Local QA screenshots outside repository: /tmp/beans-clarity-qa/evidence",
   "evidence": [
-    "family-desktop-complete.png",
-    "mobile-opening-final.png",
-    "mobile-320-final.png",
-    "mobile-kitten-final.png",
-    "mobile-phone-final.png",
-    "mobile-reduced-motion.png",
-    "puppy-native-phone.png",
-    "pony-native-phone.png",
-    "kaggle-wan-session-stopped.png"
+    "rear-walk.png",
+    "mobile-native-family.png",
+    "product-overview.png",
+    "desktop-white-finish.png",
+    "mobile-white-finish.png",
+    "safari-walk.png",
+    "safari-native-phone.png",
+    "safari-white-finish.png",
+    "final-poster.png"
   ],
+  "previousReleaseEvidence": {
+    "checkedUTC": "2026-10-24T17:57:06.331042+00:00",
+    "localProductionURL": "http://127.0.0.1:4173/",
+    "checks": {
+      "desktopForwardStory": true,
+      "fastForwardReverseFinalEncode": true,
+      "allThreePetSelections": true,
+      "phoneTapDesktopAndMobile": true,
+      "pauseButterflies": true,
+      "optInSoundControl": true,
+      "mobileWidths": [
+        320,
+        390
+      ],
+      "noHorizontalOverflow": true,
+      "mobileArrivalFraming": true,
+      "nativeRegistrationScreenReadability": true,
+      "reducedMotionNoPin": true,
+      "reducedMotionVideoReadyState": 0,
+      "keyboardSkipFocus": "join",
+      "keyboardSkipRemovesPin": true,
+      "homeRestoresStory": true,
+      "blockedVideoFallback": true,
+      "temporaryBrowserOverridesRestored": true,
+      "threeTapLogoFlourish": true
+    },
+    "evidence": [
+      "family-desktop-complete.png",
+      "mobile-opening-final.png",
+      "mobile-320-final.png",
+      "mobile-kitten-final.png",
+      "mobile-phone-final.png",
+      "mobile-reduced-motion.png",
+      "puppy-native-phone.png",
+      "pony-native-phone.png",
+      "kaggle-wan-session-stopped.png"
+    ],
+    "limits": [
+      "Opt-in sound controls and WebAudio implementation checked; no auditory listening acceptance claimed.",
+      "No physical iPhone/Safari test."
+    ]
+  },
   "limits": [
-    "Opt-in sound controls and WebAudio implementation checked; no auditory listening acceptance claimed.",
-    "No physical iPhone/Safari test."
+    "No physical iPhone, actual beta installation, auditory listening or mailbox delivery acceptance.",
+    "Optical-flow and reconstructed HD source remain bounded by the original 960x544 generation."
   ]
 }

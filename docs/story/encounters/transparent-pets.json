@@ -1,0 +1,28 @@
+{
+  "createdUTC": "2026-10-24T18:56:46.881641+00:00",
+  "tool": "built-in image_gen",
+  "prompt": "Remove only white background, white floor and floor shadow; preserve the exact same cartoon character, face, proportions, pose, fur colors, limbs, tail, mane and expression. Genuine alpha transparency; no new objects or background.",
+  "assets": [
+    {
+      "pet": "cat",
+      "source": "/Users/lazy/.codex/generated_images/01a16c65-d6bc-73e0-8e3f-1e8597a3496d/exec-e5286a23-e454-490e-8ea0-64614229d83b.png",
+      "destination": "public/assets/story/pets/cat.webp",
+      "sha256": "670202b6347afdb5a33c2f7ec53ae2967e2a7c2defbd843bb04d0d56abfc674f",
+      "alpha": true
+    },
+    {
+      "pet": "dog",
+      "source": "/Users/lazy/.codex/generated_images/01a16c65-d6bc-73e0-8e3f-1e8597a3496d/exec-56518c77-b7a1-4cd1-9942-d0212b7e7402.png",
+      "destination": "public/assets/story/pets/dog.webp",
+      "sha256": "1f718789618fdc97bba63fa54546ad86b86107dfbb4a36f68f56ce1d9f848abe",
+      "alpha": true
+    },
+    {
+      "pet": "horse",
+      "source": "/Users/lazy/.codex/generated_images/01a16c65-d6bc-73e0-8e3f-1e8597a3496d/exec-7cda027e-8da1-469c-8e6b-030b9dfcfe8b.png",
+      "destination": "public/assets/story/pets/horse.webp",
+      "sha256": "ef28adc02aa79bf11df427cf2bae376ea713f91c2238f50c4f2413f0072c0468",
+      "alpha": true
+    }
+  ]
+}
