@@ -4,29 +4,33 @@ Build briefs for the **Beans Pet and Equine Care** landing page, adapted from th
 
 This repository currently contains prompts and reference documentation, not a website implementation. The direction is cinematic Beans: warm ivory, deep navy, coral accents, expressive animal artwork, and carefully choreographed product storytelling.
 
+The briefs are platform-neutral and intended for a developer or coding agent working directly in the website repository. They do not require a hosted site builder, managed mode, a particular framework, or a particular deployment provider.
+
 ## Folder structure
 
 ```text
 prompts/
   shared/
     gsap-implementation.md       Required technical foundation for both phases
-  runable/
+  website/
     01-build-hero.md             Hero composition and optional five-stage tour
     02-complete-website.md       Remaining sections, contact, and footer
 references/
   beans-style-and-product.md     Brand, voice, product context, and claim boundaries
-  asset-manifest.md              What to upload from Beans-iOS and how to use it
+  asset-manifest.md              What to prepare from Beans-iOS and how to use it
 ```
 
-## Use the prompts in Runable
+## Use the website build briefs
 
 1. Review the [Beans style and product reference](references/beans-style-and-product.md).
-2. Upload the relevant artwork, logo variants, media, and interface references listed in the [asset manifest](references/asset-manifest.md). Paths in these documents do not transfer assets to Runable.
-3. Paste the complete [shared GSAP implementation brief](prompts/shared/gsap-implementation.md), followed by [01 — Build the hero](prompts/runable/01-build-hero.md).
+2. Make the approved artwork, logo variants, media, and interface references listed in the [asset manifest](references/asset-manifest.md) available to the website project. Source paths alone do not transfer files or authorize publishing private records.
+3. Give the developer or coding agent the complete [shared GSAP implementation brief](prompts/shared/gsap-implementation.md), followed by [01 — Build the hero](prompts/website/01-build-hero.md). An agent with repository access can read these files directly.
 4. Inspect and approve the hero before proceeding.
-5. In the same Runable project, paste [02 — Complete the website](prompts/runable/02-complete-website.md). Keep the shared brief in context; paste it again if starting a new conversation.
+5. In the same website project, use [02 — Complete the website](prompts/website/02-complete-website.md). Keep the shared brief in context; provide it again if starting a new conversation.
 
 The shared brief is mandatory for both phases. Each phase contains its own section-specific animation requirements, so the technical foundation does not need to be duplicated.
+
+Preserve the website's existing stack and conventions. If no implementation exists, state a conventional web setup compatible with GSAP before scaffolding it. Build and validation commands come from the actual project, not a presumed platform.
 
 ### Required and supporting tools
 
