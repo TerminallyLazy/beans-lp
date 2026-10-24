@@ -213,11 +213,23 @@
   ],
   "webEncode": {
     "codec": "H.264",
-    "crf": 22,
+    "crf": 20,
     "gop": 4,
-    "fps": 16,
-    "frames": 518,
-    "comparison_to_crf19_gop2_ssim": 0.98098,
-    "comparison": "Compression comparison only, not anatomical or owner acceptance."
+    "fps": 32,
+    "frames": 1036,
+    "variants": {
+      "hd": {
+        "width": 1920,
+        "height": 1088,
+        "bytes": 72081127
+      },
+      "base": {
+        "width": 960,
+        "height": 544,
+        "bytes": 29203696
+      }
+    },
+    "processing": "clarity-media.json",
+    "review": "All inserted intermediate frames and largest optical-flow departures reviewed separately; no claim of native 1080p generation or owner approval."
   }
 }

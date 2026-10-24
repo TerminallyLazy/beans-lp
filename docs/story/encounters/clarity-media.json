@@ -1,0 +1,38 @@
+{
+  "createdUTC": "2026-10-24T19:10:22.465286+00:00",
+  "source": "Hash-reviewed Apache-2.0 Wan production takes in selected-sources.json",
+  "interpolation": "FFmpeg minterpolate, 16 to 32 fps, MCI/AOBMC/bidirectional/variable block size, threshold 10; pad the input before interpolation and trim to 1036 frames so the final source pose is retained.",
+  "upscale": {
+    "model": "FSRCNN x2",
+    "source": "https://github.com/Saafke/FSRCNN_Tensorflow",
+    "revision": "6a4812c4ef1c4f5947d79beafa32a05a6eb4a94d",
+    "license": "Apache-2.0",
+    "sha256": "366b33f0084c7b3f2bf6724f0a2c77bca94fcec9d7b6d72389d330073b380d5c",
+    "runtime": "opencv-contrib-python-headless 4.12.0.88; CPU, four threads"
+  },
+  "encode": {
+    "codec": "H.264",
+    "crf": 20,
+    "gop": 4,
+    "fps": 32,
+    "frames": 1036,
+    "desktop": [
+      1920,
+      1088
+    ],
+    "mobile": [
+      960,
+      544
+    ]
+  },
+  "visualReview": {
+    "agentReviewed": true,
+    "ownerApproval": false,
+    "scope": "All 518 inserted odd frames inspected in 11 numbered contact sheets; highest 36 optical-flow/blend departures inspected independently. No persistent extra/disconnected limb or tail, identity change, repeated phone or landscape artifact seen. Five full-size super-resolution samples compared to bilinear enlargement. Browser composition review is separate. The corrected final look-ahead frames were reviewed separately; the final source pose is retained."
+  },
+  "limits": [
+    "Upscaled from 960x544 source; not newly rendered native 1080p detail.",
+    "Optical-flow intermediate frames are derived, not newly performed character animation."
+  ],
+  "candidateRecipe": "scripts/prepare-sharp-film.py"
+}

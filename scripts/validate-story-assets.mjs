@@ -3,7 +3,7 @@ import { createHash } from 'node:crypto';
 const root = new URL('../', import.meta.url);
 const release = JSON.parse(await readFile(new URL('docs/story/encounters/release-media.json', root), 'utf8'));
 if (!release.agentVisualReviewComplete) throw new Error('Story media has not completed visual review.');
-for (const path of ['journey.mp4', 'journey-track.json', 'journey-start.webp', 'journey-end.webp', 'journey-poster.webp']) {
+for (const path of ['journey.mp4', 'journey-hd.mp4', 'journey-track.json', 'journey-start.webp', 'journey-end.webp', 'journey-poster.webp', 'phone-back.webp', 'pets/cat.webp', 'pets/dog.webp', 'pets/horse.webp']) {
   if (!release.files[`public/assets/story/${path}`]) throw new Error(`Missing reviewed release asset: ${path}`);
 }
 for (const [path, expected] of Object.entries(release.files)) {
@@ -23,7 +23,7 @@ for (const [index, id] of ['phone', 'kitten', 'puppy', 'pony', 'family'].entries
 if (offset !== release.frameCount || track.scenes.length !== 5) throw new Error('Scene timing does not cover the film.');
 for (const quad of track.frames) if (quad && (quad.length !== 4 || quad.some(p => p.length !== 2 || p.some(v => !Number.isFinite(v))))) throw new Error('Malformed phone plane.');
 const nativeScreens = ['welcome','empty','add-cat','add-dog','add-horse','cat','dog','horse','cat-activity','dog-activity','horse-activity','family-menu'].map(name => `story/native/${name}.webp`);
-for (const path of ['beans-logo-light.webp','beans-mark-light.png','fonts/manrope-variable.ttf','animation/cat-light-poster.webp','animation/dog-light-poster.webp','animation/horse-light-poster.webp','story/apple-testflight.png','story/beans-public-beta-qr.svg',...nativeScreens]) {
+for (const path of ['beans-logo-light.webp','beans-mark-light.png','fonts/manrope-variable.ttf','story/phone-back.webp','story/pets/cat.webp','story/pets/dog.webp','story/pets/horse.webp','story/apple-testflight.png','story/beans-public-beta-qr.svg',...nativeScreens]) {
   if ((await stat(new URL(`public/assets/${path}`, root))).size < 100) throw new Error(`Missing runtime artwork: ${path}`);
 }
 console.log(`Verified ${Object.keys(release.files).length} reviewed media assets and ${release.frameCount} tracking frames.`);
