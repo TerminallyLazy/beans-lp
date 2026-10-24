@@ -68,6 +68,14 @@
 @media(max-width:350px) {
   .story-scroll-cue { font-size:0; gap:0; }
 }
+@media(max-height:500px) and (orientation:landscape) {
+  .encounter-stage { min-height:0; }
+  .encounter-header { padding:12px 4vw; }
+  .story-opening { top:25%; bottom:auto; left:6vw; max-width:49%; font-size:clamp(28px,4.6vw,42px); }
+  .story-scroll-cue { bottom:24px; }
+  .story-play-controls { bottom:18px; }
+  .story-pet-choices { bottom:18px; }
+}
 @media(prefers-reduced-motion:reduce) {
   .story-opening,.story-scroll-cue,.story-play-controls,.story-progress { display:none; }
   .encounter-stage { --opening-shade:0; height:min(80svh,850px); }
