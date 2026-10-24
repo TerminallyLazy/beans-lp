@@ -1,0 +1,70 @@
+{
+  "date": "2026-10-24",
+  "status": "agent-reviewed-release-ready",
+  "selectedAsset": "public/assets/story/journey.mp4",
+  "sha256": "406f561a957021ef53cecd65b7cdf0b07780f0c94f93d4d053df06183cf5d35f",
+  "humanPreset": {
+    "id": "guy-v1",
+    "resource": "BeansVet/Resources/Animations/HumanGuyPoster.png",
+    "verifiedIn": "BeansVet/Sources/Identity/BeansHumanProfile.swift"
+  },
+  "nativeReferenceCommit": "086a8a3cb349570013ae54fe1e1d1243ef3d1870",
+  "ownerChoices": {
+    "banter": "Expressive acting, optional sound effects",
+    "contactEmail": "contact@petswithbeans.com"
+  },
+  "scope": "Owner authorized all remaining videos, full landing page implementation and launch at petswithbeans.com on 2026-10-24; no additional confirmation requested.",
+  "keyframeTool": "Built-in image_gen using Beans HumanGuy and app animal references; still generation and targeted anatomy correction.",
+  "prompts": "keyframe-prompts.md",
+  "keyframes": [
+    {
+      "file": "assets/human-guy-reference.png",
+      "sha256": "f38d3f8014b01e594e721cfe1e9afe950fcf3eb8934942be073abd9f635fe9e3"
+    },
+    {
+      "file": "assets/human-guy-fullbody-reference-v1.png",
+      "sha256": "ed0e1d1a38286dfe1895c3841c1e3e8677d3606ff13d7454bbd71acd1a3cf58f"
+    },
+    {
+      "file": "assets/human-opening-keyframe-v1.png",
+      "sha256": "35dbdf5acfccbf3c052cc2fb93642b895ccb4fb6c1b066a2b663d2f4b5800efc"
+    },
+    {
+      "file": "assets/human-phone-end-keyframe-v1.png",
+      "sha256": "db55466e75692895f89498800530481c217d79b7f5400d4750754ec39bb7adf6"
+    },
+    {
+      "file": "assets/kitten-encounter-end-v2.png",
+      "sha256": "ab6a6028c0b30cc221be1766f5631c49ba855b8e129ad29b8292ce6919a8d085"
+    },
+    {
+      "file": "assets/puppy-encounter-end-v1.png",
+      "sha256": "b04abfe38815bbc51dd419ad19cde4a9a9bcf2da2b24c7f6aafd799138304a7d"
+    },
+    {
+      "file": "assets/pony-encounter-end-v2.png",
+      "sha256": "270897e417ea3b4642b6550874407edb2dc2d62aefcba34e0a54fcabdc57a1b8"
+    },
+    {
+      "file": "assets/family-walk-end-v2.png",
+      "sha256": "6a7b66350efb014d2d23bb09f4ad5dc2e9c8811d3d277abc7576fd3702c141bc"
+    },
+    {
+      "file": "assets/family-walking-wide-v4.png",
+      "sha256": "6da26b16d267ac3361927261e681c223fdcd35cd83a1273aabd4f9bc84748d48"
+    }
+  ],
+  "videoTool": "Pinned WanGP with Apache-licensed Wan weights; see kaggle/README.md and selected-sources.json.",
+  "nativeScreens": "native-captures.json",
+  "browserAcceptance": "browser-acceptance.json",
+  "releaseHashes": "release-media.json",
+  "exclusions": [
+    "H3 footage and decoded frames excluded from production and conditioning after license review.",
+    "Two artifact-corrupted Wan takes excluded; only hash-matched reviewed sources may package."
+  ],
+  "limitations": [
+    "Character footage is generated 3D-rendered video, not runtime skinned character meshes.",
+    "Production app screens are native captures from an isolated synthetic vault, not real owner records.",
+    "Agent frame and browser review is complete; final owner visual approval is not claimed."
+  ]
+}

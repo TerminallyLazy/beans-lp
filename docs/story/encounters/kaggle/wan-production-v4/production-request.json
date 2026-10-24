@@ -1,0 +1,69 @@
+{
+  "pipeline": "Wan2.2 I2V A14B with Apache-licensed Lightning four-step profile",
+  "resolution": "960x544",
+  "shot_timeout_seconds": 2700,
+  "negative_prompt": "extra limbs, extra fingers, fused fingers, detached hands, duplicated person, duplicated animals, extra legs, missing legs, malformed joints, displaced paws, duplicated tail, two tails, sliding feet, morphing body, floating phone, lettering, text, subtitles, logo, interface symbols, flicker, abrupt camera cut, distorted perspective, anatomical mutation, extra tail growing from shoulder, mane mistaken for tail, leg emerging from belly, mismatched forelegs and hindlegs, rapidly changing animal size, oversized eyes changing shape, character disappearing, teleporting, noisy black patterns, clipped shadows, color solarization",
+  "inputs": {
+    "human-phone-end-keyframe-v1.png": "db55466e75692895f89498800530481c217d79b7f5400d4750754ec39bb7adf6",
+    "human-opening-keyframe-v1.png": "35dbdf5acfccbf3c052cc2fb93642b895ccb4fb6c1b066a2b663d2f4b5800efc",
+    "kitten-encounter-end-v2.png": "ab6a6028c0b30cc221be1766f5631c49ba855b8e129ad29b8292ce6919a8d085",
+    "puppy-encounter-end-v1.png": "b04abfe38815bbc51dd419ad19cde4a9a9bcf2da2b24c7f6aafd799138304a7d",
+    "pony-encounter-end-v2.png": "270897e417ea3b4642b6550874407edb2dc2d62aefcba34e0a54fcabdc57a1b8",
+    "family-walk-end-v2.png": "6a7b66350efb014d2d23bb09f4ad5dc2e9c8811d3d277abc7576fd3702c141bc"
+  },
+  "scenes": [
+    {
+      "id": "phone",
+      "seed": 517401,
+      "frames": 81,
+      "start": "human-opening-keyframe-v1.png",
+      "end": "human-phone-end-keyframe-v1.png",
+      "prompt": "A continuous feature-animation shot. The exact same auburn-haired freckled man in a coral sweater takes one relaxed step on the lakeside path, stops, draws his slim phone from his left trouser pocket with his left hand, and supports its lower edge with his right hand. He looks down with quiet curiosity. The camera smoothly arcs around his left side and approaches the front of the held phone, matching the ending image. Hands maintain continuous physical contact. Finish with the blank warm ivory display fully visible and steady for the final second, only subtle breathing and a fluttering orange butterfly. Preserve his face, hair, clothing, body proportions, both hands and fingers. Coherent natural perspective, golden sunset meadow, gentle breeze, subtle expressive acting. One uninterrupted camera move, no cuts."
+    },
+    {
+      "id": "kitten",
+      "frames": 97,
+      "seed": 517402,
+      "preceding": "phone",
+      "start": "human-phone-end-keyframe-v1.png",
+      "end": "kitten-encounter-end-v2.png",
+      "prompt": "One continuous 3D feature-animation shot in the same golden meadow. Preserve the auburn freckled man in a coral sweater and his two hands physically holding the same blank ivory-display phone. A tiny ginger-and-white kitten tumbles playfully in from the flowers on the left: one gentle sideways roll with its four paws tucked, then it rights itself onto all four paws and takes two small balanced steps toward him. The man turns his head, smiles, and lowers into a friendly crouch while keeping the phone stable in view. One orange butterfly flutters over the kitten and it looks up after the butterfly. Four anatomically attached legs, normal feline shoulders and hips, four white paws, one striped tail attached only at the pelvis. Keep limb identity and count consistent throughout the roll. Camera eases outward to the final over-shoulder composition; finish with the kitten grounded on four paws beside the unobstructed phone. Subtle breathing, blinking and ears remain moving in the last second. No cut, no duplicated kitten, no speaking or lettering."
+    },
+    {
+      "id": "puppy",
+      "frames": 81,
+      "seed": 517403,
+      "preceding": "kitten",
+      "start": "kitten-encounter-end-v2.png",
+      "end": "puppy-encounter-end-v1.png",
+      "prompt": "One continuous 3D feature-animation shot. The same Human, ginger kitten and held blank-screen phone continue from the opening frame. The Human rises slightly and takes a small step along the path, kitten padding beside him. A small golden retriever puppy trots in from the left carrying exactly one coral-red tennis ball with a cream curved seam in its mouth. The puppy slows beside the kitten, wags its single tail at the hips and lifts its chin to offer the ball, keeping the ball securely in its mouth. The kitten turns its head to greet the puppy with a small nose sniff. The Human crouches to their level and smiles; hands keep continuous contact with the phone. Camera makes a gentle continuous arc to the ending composition. The kitten and puppy each retain four correctly attached legs and one tail, stable feet and natural joints; no paws pass through another body. Finish with all four puppy paws resting on the path and the blank phone fully readable. Gentle ears, blinking and breathing continue, no cuts."
+    },
+    {
+      "id": "pony",
+      "frames": 97,
+      "seed": 517404,
+      "preceding": "puppy",
+      "start": "puppy-encounter-end-v1.png",
+      "end": "pony-encounter-end-v2.png",
+      "prompt": "A continuous warm 3D feature-animation scene with the same man, ginger kitten and golden puppy carrying the same coral ball. A small chestnut pony with a broad white blaze and flowing flaxen mane walks into view from behind the puppy, taking three deliberate natural four-beat steps along the path. Each hoof plants correctly and supports weight. The pony has exactly four legs: two forelegs connected at the shoulders and two hindlegs at the pelvis, each with one dark hoof. Its only tail grows from the back of the rump; the mane stays on the neck and never becomes another tail. The kitten watches with an ear twitch and the puppy wags, staying clear of the pony's legs. The Human smiles toward the pony, holds the same blank ivory-screen phone in both hands and makes a small welcoming nod. Gentle camera pullback reveals the full pony, matching the ending frame. End with all four distinct pony hooves visible on the path, a single attached tail, and subtle breathing and mane motion. No morphing, no camera cut, no extra animal."
+    },
+    {
+      "id": "family",
+      "frames": 97,
+      "seed": 517405,
+      "preceding": "pony",
+      "start": "pony-encounter-end-v2.png",
+      "end": "family-walk-end-v2.png",
+      "prompt": "One continuous cinematic 3D feature-animation shot. The same auburn freckled Human in a coral sweater and his three companions enjoy a short walk together down the golden lakeside path. The ginger kitten takes two nimble steps after a fluttering butterfly; the golden puppy follows with a happy balanced trot and the same coral-red ball held in its mouth; the chestnut white-blaze pony follows at a calm four-beat walk with four distinct legs and one tail. The Human walks two relaxed steps with them, keeping the phone naturally supported by both hands, then pauses and bends toward his companions with a contented smile. Camera tracks smoothly alongside and settles into the ending over-shoulder composition showing the clear blank phone in the foreground and all three friends beyond it. Maintain each animal's exact species, coat, face, correct four-leg anatomy, single attached tail, contact shadows and consistent scale. Butterflies loop gently between the flowers. End with all three animals grounded, safe and engaged, subtle ears, breathing, blinking, tail and butterfly movement continuing. No cuts, no speech, no screen text."
+    }
+  ],
+  "attention": "sage",
+  "isolated_triton": "3.2.0",
+  "sageattention": "1.0.6",
+  "vae_precision": "16",
+  "take": "v4",
+  "int8_backend": "pytorch",
+  "acceleration_profile": "Lightning i2v v1.0 2 Phases - 4 Steps.json",
+  "review_gate": true,
+  "review_timeout_seconds": 1200
+}

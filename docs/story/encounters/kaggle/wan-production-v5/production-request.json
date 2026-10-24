@@ -1,0 +1,40 @@
+{
+  "pipeline": "Wan2.2 I2V A14B, Apache-licensed Lightning four-step, PyTorch INT8",
+  "resolution": "960x544",
+  "shot_timeout_seconds": 2700,
+  "negative_prompt": "extra limbs, extra fingers, fused fingers, detached hands, duplicated person, duplicated animals, extra legs, missing legs, malformed joints, displaced paws, duplicated tail, two tails, sliding feet, morphing body, floating phone, lettering, text, subtitles, logo, interface symbols, flicker, abrupt camera cut, distorted perspective, anatomical mutation, extra tail growing from shoulder, mane mistaken for tail, leg emerging from belly, mismatched forelegs and hindlegs, rapidly changing animal size, oversized eyes changing shape, character disappearing, teleporting, noisy black patterns, clipped shadows, color solarization",
+  "inputs": {
+    "pony-encounter-end-v2.png": "270897e417ea3b4642b6550874407edb2dc2d62aefcba34e0a54fcabdc57a1b8",
+    "family-walk-end-v2.png": "6a7b66350efb014d2d23bb09f4ad5dc2e9c8811d3d277abc7576fd3702c141bc",
+    "family-walking-wide-v4.png": "6da26b16d267ac3361927261e681c223fdcd35cd83a1273aabd4f9bc84748d48"
+  },
+  "scenes": [
+    {
+      "id": "family-walk",
+      "frames": 81,
+      "seed": 517506,
+      "preceding": "pony",
+      "start": "pony-encounter-end-v2.png",
+      "end": "family-walking-wide-v4.png",
+      "prompt": "One continuous feature-animation camera move. The exact auburn freckled Human in coral sweater rises fully from his crouch to an upright standing posture and starts walking down the lakeside path with his three companions. He takes three relaxed, anatomically correct alternating steps, navy trouser legs and ivory sneakers visible. He keeps the same small phone naturally in his left hand at chest level; the right arm swings gently, hands never detach. Camera dollies backward and arcs to a wide full-body three-quarter tracking shot, revealing the complete group walking together, matching the ending reference. Ginger kitten pads along with four attached white paws, golden puppy trots with the coral ball held in its mouth and one wagging tail, chestnut white-blaze pony follows beside them with a natural four-beat walk, exactly four legs and one rump tail. Each animal steps and plants feet with coherent shoulders and hips and stable contact shadows. Human glances fondly at companions, kitten follows a fluttering butterfly, puppy looks up at him. Keep every character identity, coat, clothing and proportions unchanged. Show real walking and rising action, not a frozen pose moving across the image. No dissolves, morphing, jumps, cuts, extra legs, extra tail or disappearing character. Blank ivory phone screen with no symbols."
+    },
+    {
+      "id": "family-close",
+      "frames": 81,
+      "seed": 517507,
+      "preceding": "family-walk",
+      "start": "family-walking-wide-v4.png",
+      "end": "family-walk-end-v2.png",
+      "prompt": "One continuous cinematic feature-animation tracking shot from the full-body walking family. The same auburn freckled Human walks two more relaxed steps alongside the same ginger kitten, golden puppy with coral ball in mouth, and white-blaze chestnut pony. The camera makes a gentle smooth arc toward his left shoulder and approaches the phone held securely in his two hands as he slows and bends affectionately toward his friends. All three pets settle on the path beyond the phone in the final over-shoulder composition. Keep each animal four-legged with a single attached tail, shoulders and hips anatomically stable and all feet correctly planted. Preserve exact face, fur, clothing, ball and species throughout. Human maintains physical contact with phone and natural wrist/finger anatomy during the transition. Final warm ivory display is fully visible and steady for the final second; no text or generated UI. Pets continue subtle breathing, ears, blinking and one-tail motion, orange butterflies flutter between flowers. Warm golden lake, natural shadows, seamless camera movement and no cuts, no teleporting or morphing."
+    }
+  ],
+  "attention": "sage",
+  "isolated_triton": "3.2.0",
+  "sageattention": "1.0.6",
+  "vae_precision": "16",
+  "take": "v5",
+  "int8_backend": "pytorch",
+  "acceleration_profile": "Lightning i2v v1.0 2 Phases - 4 Steps.json",
+  "review_gate": true,
+  "review_timeout_seconds": 1200
+}

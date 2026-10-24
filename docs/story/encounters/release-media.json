@@ -1,0 +1,123 @@
+{
+  "createdUTC": "2026-10-24T17:57:06.331042+00:00",
+  "agentVisualReviewComplete": true,
+  "ownerVisualApproval": false,
+  "browserAcceptanceComplete": true,
+  "fps": 16,
+  "frameCount": 518,
+  "files": {
+    "public/assets/animation/cat-light-poster.webp": {
+      "sha256": "aa83444e985ea21f5fdc672b756dd4ce078f43d3932941ed7e4fd50fd7dd14c1",
+      "bytes": 32982
+    },
+    "public/assets/animation/dog-light-poster.webp": {
+      "sha256": "c7d2fa0be26081c7cd73b1689a16fe4b480682d55dea3b72caf7ca4d1360b760",
+      "bytes": 29074
+    },
+    "public/assets/animation/horse-light-poster.webp": {
+      "sha256": "bbe79929bbe67ebbd303b934d776cb76672cdea95ba83fb63b2cf38bc7a52c09",
+      "bytes": 26614
+    },
+    "public/assets/beans-logo-light.webp": {
+      "sha256": "904d248f1ae7df696e7936df37a93f17a0c8cdb52d74c8c238ff491df2d7bb51",
+      "bytes": 13388
+    },
+    "public/assets/beans-mark-light.png": {
+      "sha256": "aad3d1d753ba335ac1e2f534cc6020662b45eb03ae2109e0555a5d7bfc694dd0",
+      "bytes": 16227
+    },
+    "public/assets/fonts/Manrope-OFL.txt": {
+      "sha256": "d6a309fcfb963d329a93baf9df66fa5f3c23a4be2b5f67edf24d6cafecde12ac",
+      "bytes": 4386
+    },
+    "public/assets/fonts/manrope-variable.ttf": {
+      "sha256": "3ae11c49db0455a3cc33e37d380f20fdb8c7f8b41dc07625c177e3d87a9d6ae6",
+      "bytes": 164700
+    },
+    "public/assets/story/apple-testflight.png": {
+      "sha256": "66ee977139f81638ae1f58e3ea497da7c86a2f1c5b8777bc7c6d2fcb1dd3ec65",
+      "bytes": 127204
+    },
+    "public/assets/story/beans-public-beta-qr.svg": {
+      "sha256": "f5deae11180cd9216838d7913236a886508810b596dafa28806a2e49a8fbc123",
+      "bytes": 2545
+    },
+    "public/assets/story/journey-end.webp": {
+      "sha256": "3c170f32dbbff885222ac59bed80c8a04ef9a7d8cec697e394333552016f759e",
+      "bytes": 145746
+    },
+    "public/assets/story/journey-poster.webp": {
+      "sha256": "afdcc2c723c1a0583e4159470d10477bb04e5ed964fdf911153235ca2e42b806",
+      "bytes": 347212
+    },
+    "public/assets/story/journey-start.webp": {
+      "sha256": "eb238b71bb290279075cc87e2706b85882944c7bb0d81e8ad99562c8f7b3f0ea",
+      "bytes": 108702
+    },
+    "public/assets/story/journey-track.json": {
+      "sha256": "57053d114d8cf4917ff4a0f20911da2d419e9efac3255e9c4eb08c3c9793a49d",
+      "bytes": 39363
+    },
+    "public/assets/story/journey.mp4": {
+      "sha256": "406f561a957021ef53cecd65b7cdf0b07780f0c94f93d4d053df06183cf5d35f",
+      "bytes": 18345133
+    },
+    "public/assets/story/native/add-cat.webp": {
+      "sha256": "8335fe3540037c77f96e5022503986c61023546ea46dd5e31da813c45239e453",
+      "bytes": 129694
+    },
+    "public/assets/story/native/add-dog.webp": {
+      "sha256": "b25be16d1983b9e5fd56a27fe676339eb1714c0d576f529fe54e1f9670114ad9",
+      "bytes": 127960
+    },
+    "public/assets/story/native/add-horse.webp": {
+      "sha256": "0bb3c6fee4fce7d4af5d2f258893b755be8f565662c3208579911619c4011deb",
+      "bytes": 126336
+    },
+    "public/assets/story/native/cat-activity.webp": {
+      "sha256": "f6c183afbdcc0834288ae01868d759220e068aae21d6e9c4e480cc3006339af5",
+      "bytes": 216440
+    },
+    "public/assets/story/native/cat.webp": {
+      "sha256": "1c6b163f8602fe6e26150b9e7d97b648bac53715461b711a3c59edb43e4c28fb",
+      "bytes": 239380
+    },
+    "public/assets/story/native/dog-activity.webp": {
+      "sha256": "72731666165cae0227d3794f068927574dfe5efdc8b262582c84c96db388faaf",
+      "bytes": 205270
+    },
+    "public/assets/story/native/dog.webp": {
+      "sha256": "4d69e5fd1b2053fc634b2de870d9fd24aba459e7b043100d11fed4fbda26c639",
+      "bytes": 229130
+    },
+    "public/assets/story/native/empty.webp": {
+      "sha256": "4fde0a000321f270e4bdfb51fa804eebb8b3ab6f13a30bed66b87483f1a27b40",
+      "bytes": 133088
+    },
+    "public/assets/story/native/family-menu.webp": {
+      "sha256": "f8d1778425a3818c37d65c8447827b0761e99f07697a01a60b4ecdd20695c5ed",
+      "bytes": 180208
+    },
+    "public/assets/story/native/horse-activity.webp": {
+      "sha256": "8fa3555d212be60ee8da10b689a8c709995b88c56c73fe0f65f3b79bc5716198",
+      "bytes": 179798
+    },
+    "public/assets/story/native/horse.webp": {
+      "sha256": "27fd5fd9b5c3f65e8eb318e1ddabd4607fbd7445dd6ae047f2e9e75eaf4cbf9e",
+      "bytes": 204508
+    },
+    "public/assets/story/native/welcome.webp": {
+      "sha256": "c2765bca81df81c48b0362c62ed0a18688720612637773eeaa80765513f61ff8",
+      "bytes": 157686
+    }
+  },
+  "sourceReviews": "selected-sources.json",
+  "nativeScreens": "native-captures.json",
+  "browserEvidence": "browser-acceptance.json",
+  "characterTechnique": "Conditioned 3D-rendered video performances; foreground butterflies are runtime articulated Three.js meshes.",
+  "limits": [
+    "Chromium browser rendering checked; no physical iPhone or Safari acceptance claimed.",
+    "Activity screens use isolated native synthetic records, not live tracking.",
+    "No email delivery or physical beta install test performed."
+  ]
+}

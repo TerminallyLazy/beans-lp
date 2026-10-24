@@ -1,0 +1,15 @@
+@font-face { font-family:'Manrope'; src:url('/assets/fonts/manrope-variable.ttf') format('truetype'); font-style:normal; font-weight:200 800; font-display:swap; }
+:root { font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif; --canvas:#fdfdfa; --ink:#051d38; --muted:#526374; --coral:#ff584f; --rule:#dce0dc; --soft:#f1f2ec; color:var(--ink); background:var(--canvas); font-synthesis:none; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased; color-scheme:light; }
+* { box-sizing:border-box; }
+body { margin:0; min-width:280px; }
+button, input { font:inherit; }
+button,a { -webkit-tap-highlight-color:transparent; touch-action:manipulation; color:inherit; }
+button { cursor:pointer; }
+a { color:inherit; }
+:focus-visible { outline:3px solid var(--coral); outline-offset:5px; }
+::selection { color:#051d38; background:#ffbeb7; }
+p,h1,h2,h3 { margin:0; }
+img { max-width:100%; display:block; }
+svg { flex-shrink:0; }
+.skip-link { position:fixed; top:-100px; left:20px; z-index:100; padding:16px; background:var(--canvas); }
+.skip-link:focus { top:12px; }

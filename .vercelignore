@@ -1,0 +1,13 @@
+.claude/
+.git/
+.impeccable/
+node_modules/
+dist/
+.ssr/
+docs/assets/originals/
+docs/evidence/
+docs/story/encounters/assets/
+docs/story/encounters/models/
+docs/story/encounters/kaggle/
+*.tsbuildinfo
+.DS_Store

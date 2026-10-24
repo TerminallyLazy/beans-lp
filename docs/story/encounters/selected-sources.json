@@ -1,0 +1,223 @@
+{
+  "status": "all-five-scenes-agent-reviewed",
+  "reviewer": "Agent review, not owner acceptance",
+  "wan2gp_commit": "b8b18f8114e432eea8f3d7e853a51dd91fa99571",
+  "models": [
+    {
+      "repo": "DeepBeepMeep/Wan2.2",
+      "revision": "18af79606a99e565d7c5655454c1f827e190eac2",
+      "file": "wan2.2_image2video_14B_high_quanto_mfp16_int8.safetensors",
+      "bytes": 14904658613
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.2",
+      "revision": "18af79606a99e565d7c5655454c1f827e190eac2",
+      "file": "wan2.2_image2video_14B_low_quanto_mfp16_int8.safetensors",
+      "bytes": 14904658613
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.2",
+      "revision": "18af79606a99e565d7c5655454c1f827e190eac2",
+      "file": "loras_accelerators/Wan2.2_I2V_A14B_HIGH_4steps_lora_rank64_Seko_V1_forKJ.safetensors",
+      "bytes": 1226977424
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.2",
+      "revision": "18af79606a99e565d7c5655454c1f827e190eac2",
+      "file": "loras_accelerators/Wan2.2_I2V_A14B_LOW_4steps_lora_rank64_Seko_V1_forKJ.safetensors",
+      "bytes": 1226977424
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.1",
+      "revision": "a4c0cc35033229072cb6d5a92952c3d51716837f",
+      "file": "Wan2.1_VAE.safetensors",
+      "bytes": 507593157
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.1",
+      "revision": "a4c0cc35033229072cb6d5a92952c3d51716837f",
+      "file": "umt5-xxl/models_t5_umt5-xxl-enc-quanto_int8.safetensors",
+      "bytes": 6733337738
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.1",
+      "revision": "a4c0cc35033229072cb6d5a92952c3d51716837f",
+      "file": "umt5-xxl/special_tokens_map.json",
+      "bytes": 6623
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.1",
+      "revision": "a4c0cc35033229072cb6d5a92952c3d51716837f",
+      "file": "umt5-xxl/spiece.model",
+      "bytes": 4548313
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.1",
+      "revision": "a4c0cc35033229072cb6d5a92952c3d51716837f",
+      "file": "umt5-xxl/tokenizer.json",
+      "bytes": 16837417
+    },
+    {
+      "repo": "DeepBeepMeep/Wan2.1",
+      "revision": "a4c0cc35033229072cb6d5a92952c3d51716837f",
+      "file": "umt5-xxl/tokenizer_config.json",
+      "bytes": 61728
+    }
+  ],
+  "sources": [
+    {
+      "scene": "phone",
+      "video": "beans-phone-wan-v4.mp4",
+      "video_sha256": "1ab59636f792e5543cf82ff7e1903d0074b411fa45968dd75ac96195875f628a",
+      "frames": 81,
+      "width": 960,
+      "height": 544,
+      "fps": "16/1",
+      "license": "Apache-2.0",
+      "review": {
+        "approved": true,
+        "anatomy_checked": true,
+        "motion_checked": true,
+        "video_sha256": "1ab59636f792e5543cf82ff7e1903d0074b411fa45968dd75ac96195875f628a",
+        "reviewer": "Codex visual review; not owner visual approval",
+        "reviewed_at": "2026-10-24T15:11:40.898742+00:00",
+        "scope": "All 81 decoded frames inspected in six frame review sheets. Human retains two legs, two arms, source-faithful face and continuous phone contact. Walking step, phone draw and continuous camera arc are present. No repeated landscape artifacts, extra limbs or detached device seen. Final display is stable enough for native UI projection. Final website compositing and browser acceptance remain separate."
+      },
+      "tracking": {
+        "measured_frames": 28,
+        "interpolated_frames": 0,
+        "review_required": false,
+        "notes": ""
+      }
+    },
+    {
+      "scene": "kitten",
+      "video": "beans-kitten-wan-v4.mp4",
+      "video_sha256": "f83f235da76afed5972f0f049c58fe4752e2fbc5d3b18f6ec9c175e2c8ac90e5",
+      "frames": 97,
+      "width": 960,
+      "height": 544,
+      "fps": "16/1",
+      "license": "Apache-2.0",
+      "review": {
+        "approved": true,
+        "anatomy_checked": true,
+        "motion_checked": true,
+        "video_sha256": "f83f235da76afed5972f0f049c58fe4752e2fbc5d3b18f6ec9c175e2c8ac90e5",
+        "reviewer": "Codex visual review; not owner visual approval",
+        "reviewed_at": "2026-10-24T15:40:31.891911+00:00",
+        "scope": "All 97 decoded frames inspected in seven frame review sheets. Playful walking/bounding arrival through flowers, butterfly chase and forehead landing, ear/eye response and Human crouch. Single attached tail; no stray, fused or displaced paws seen; four correctly grounded paws in clear final poses. Source-faithful ginger coat and blue-eyed ending. Continuous phone contact and camera movement; no landscape artifacts. Phone-to-kitten first-frame boundary is visually continuous (39.03 dB PSNR, mean absolute RGB difference 1.86/255).",
+        "acting_note": "The generated take performs a playful walk/bound rather than a literal sideways barrel roll. Accepted as the narrative arrival; no claim of a literal roll."
+      },
+      "tracking": {
+        "measured_frames": 97,
+        "interpolated_frames": 1,
+        "review_required": false,
+        "notes": ""
+      }
+    },
+    {
+      "scene": "puppy",
+      "video": "beans-puppy-wan-v4.mp4",
+      "video_sha256": "e45722e7c3ae20e1408140c5364101bdc74f906e122bf86317bda29b8c20cb9c",
+      "frames": 81,
+      "width": 960,
+      "height": 544,
+      "fps": "16/1",
+      "license": "Apache-2.0",
+      "review": {
+        "approved": true,
+        "anatomy_checked": true,
+        "motion_checked": true,
+        "video_sha256": "e45722e7c3ae20e1408140c5364101bdc74f906e122bf86317bda29b8c20cb9c",
+        "reviewer": "Codex visual review; not owner visual approval",
+        "reviewed_at": "2026-10-24T16:07:10.411918+00:00",
+        "scope": "All 81 decoded frames inspected. Puppy trots from behind kitten to foreground with attached stepping paws and a single wagging tail. Coral ball remains held in its mouth. Kitten remains correctly seated with attached paws and tail, blinking and watching butterfly. Human maintains physical phone contact, no detached device or landscape artifacts. Continuous first frame from kitten ending: 34.91 dB PSNR, mean pixel difference 2.69/255."
+      },
+      "tracking": {
+        "measured_frames": 81,
+        "interpolated_frames": 0,
+        "review_required": false,
+        "notes": "81 measured frames, zero interpolated. Contact-sheet review confirms phone interior throughout the slow camera arc, hands/bezel remain outside projected UI. Source performance reviewed independently."
+      }
+    },
+    {
+      "scene": "pony",
+      "video": "beans-pony-wan-v4.mp4",
+      "video_sha256": "a489f9a1c227a4ee666e70defb52fbbd87f32bfeeeb137fc90351d1786f83d0a",
+      "frames": 97,
+      "width": 960,
+      "height": 544,
+      "fps": "16/1",
+      "license": "Apache-2.0",
+      "review": {
+        "approved": true,
+        "anatomy_checked": true,
+        "motion_checked": true,
+        "video_sha256": "a489f9a1c227a4ee666e70defb52fbbd87f32bfeeeb137fc90351d1786f83d0a",
+        "reviewer": "Codex visual review; not owner visual approval",
+        "reviewed_at": "2026-10-24T16:28:16.698891+00:00",
+        "scope": "All 97 decoded frames inspected in seven sheets. Pony walks from behind puppy with alternating hoof lifts and weight-bearing plants, then nods and tilts head to Human. Four continuous legs and four distinct grounded hooves in the clear final poses; ordinary gait occlusion earlier, no duplicated, detached or displaced limb. One rump tail, mane remains along neck. Kitten stays correctly seated; puppy retains mouth-held coral ball. Human phone remains physically supported, no landscape artifacts. Seam from puppy ending: 35.42 dB PSNR, mean difference 2.63/255."
+      },
+      "tracking": {
+        "measured_frames": 97,
+        "interpolated_frames": 0,
+        "review_required": false,
+        "notes": "97 measured frames, zero interpolated. All half-second contact-sheet samples and source frame review confirm interior glass corners remain on the supported phone throughout camera pullback and pony arrival; no false lake-glint detection."
+      }
+    },
+    {
+      "scene": "family",
+      "video": "beans-family-wan-v5.mp4",
+      "video_sha256": "a9d1ec6800faff53b6dcf9e01a05771065bb8ae0feb9793a212f7cb314c593f0",
+      "frames": 162,
+      "width": 960,
+      "height": 544,
+      "fps": "16/1",
+      "license": "Apache-2.0",
+      "review": {
+        "approved": true,
+        "anatomy_checked": true,
+        "motion_checked": true,
+        "video_sha256": "a9d1ec6800faff53b6dcf9e01a05771065bb8ae0feb9793a212f7cb314c593f0",
+        "reviewer": "Codex visual review; not owner visual approval",
+        "parent_reviews": [
+          {
+            "approved": true,
+            "anatomy_checked": true,
+            "motion_checked": true,
+            "video_sha256": "d3fc37f029b31dc21a5c039c47c396db34f585f463bb8eb9c744bf53aef296f5",
+            "reviewer": "Codex visual review; not owner visual approval",
+            "reviewed_at": "2026-10-24T16:49:37.713640+00:00",
+            "scope": "All 81 decoded frames inspected. Human rises from crouch, camera pulls back and arcs, then Human takes multiple alternating planted steps with a relaxed arm swing. All three pets follow with real gait changes, single attached tails, correct species and stable proportions; four separate pony hooves clear in ending walking stance. Puppy retains coral ball; kitten has attached white paws. Continuous phone contact; device is naturally edge-on/occluded during the camera arc and front-facing again during the final walk. No duplicated character or landscape artifact. Seam from pony ending: 34.37 dB PSNR, mean difference 3.06/255."
+          },
+          {
+            "approved": true,
+            "anatomy_checked": true,
+            "motion_checked": true,
+            "video_sha256": "8e8c3b09ca021c17651b1f8c5858236ba331a0a3442a5e3e3bf994a366e24b2d",
+            "reviewer": "Codex visual review; not owner visual approval",
+            "reviewed_at": "2026-10-24T17:09:37.873759+00:00",
+            "scope": "All 81 decoded frames inspected. Human and three pets continue alternating natural steps; Human slows, turns and bends toward them. Camera approaches supported phone in a continuous arc. Human keeps two arms/legs, pets keep attached limbs and one tail each; four distinct pony hooves and four kitten paws in clear ending poses. Coral ball stays in puppy mouth. Hands support the handset throughout; no stray paw or doubled animal. Native screen projection is reviewed separately. Family-walk to family-close seam visually continuous in camera, pose and identity, with 29.78 dB PSNR and mean pixel difference 5.12/255."
+          }
+        ],
+        "scope": "Every decoded source frame reviewed; remux frame identity proved. Seam review recorded in family-close review."
+      },
+      "tracking": {
+        "measured_frames": 56,
+        "interpolated_frames": 70,
+        "review_required": false,
+        "notes": "All visible-plane tiles inspected. Hidden lower corners inferred behind hands, cropped upper corners inferred above frame. No projection on edge-on intervals. Closing glint outlier 47 interpolated from adjacent planes and late bottom edges extended to visible glass support. Browser composite review pending. All geometry tiles reviewed. Native UI projection checked in browser on the full family source at turning frame 9, walking frame 72, corrected turn frame 128 and final frame 161. Fingers, sleeve and bezel retained, no console errors."
+      }
+    }
+  ],
+  "webEncode": {
+    "codec": "H.264",
+    "crf": 22,
+    "gop": 4,
+    "fps": 16,
+    "frames": 518,
+    "comparison_to_crf19_gop2_ssim": 0.98098,
+    "comparison": "Compression comparison only, not anatomical or owner acceptance."
+  }
+}
