@@ -1,0 +1,8 @@
+{
+  "family": "Manrope",
+  "sourceCSS": "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap",
+  "fileURL": "https://raw.githubusercontent.com/google/fonts/main/ofl/manrope/Manrope%5Bwght%5D.ttf",
+  "license": "SIL Open Font License 1.1",
+  "selfHosted": true,
+  "file": "public/assets/fonts/manrope-variable.ttf"
+}

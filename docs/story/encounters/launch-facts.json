@@ -1,0 +1,26 @@
+{
+  "checkedDate": "2026-10-24",
+  "betaURL": "https://testflight.apple.com/join/7WSeN4VB",
+  "publicPageTitle": "Join the Beans: Pet Care Companion beta - TestFlight - Apple",
+  "privacyURL": "https://beans-api-omega.vercel.app/privacy",
+  "supportURL": "https://beans-api-omega.vercel.app/support",
+  "contactEmail": "contact@petswithbeans.com",
+  "domain": "petswithbeans.com",
+  "currentDNS": {
+    "MX": [
+      "10 mx00.ionos.com",
+      "10 mx01.ionos.com"
+    ],
+    "SPF": "v=spf1 include:_spf-us.ionos.com ~all"
+  },
+  "recommendedHosting": "Vercel, external IONOS DNS and IONOS email retained",
+  "domainChangesMade": false,
+  "mailboxDeliveryTested": false,
+  "physicalBetaInstallTested": false,
+  "domainVerifiedOnVercel": true,
+  "vercelProjectID": "prj_4TVVeWmPyySu67O6Qbp9W0gWcwqC",
+  "verifiedDomain": "www.petswithbeans.com",
+  "verificationUTC": "2026-10-24T11:22:26Z",
+  "productionHTTPBeforeDeployment": 404,
+  "lastDomainAndMailCheckDate": "2026-10-24"
+}

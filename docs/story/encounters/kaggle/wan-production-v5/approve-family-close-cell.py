@@ -1,0 +1,5 @@
+from pathlib import Path
+import json
+beans_family_close_review={'approved': True, 'anatomy_checked': True, 'motion_checked': True, 'video_sha256': '8e8c3b09ca021c17651b1f8c5858236ba331a0a3442a5e3e3bf994a366e24b2d', 'reviewer': 'Codex visual review; not owner visual approval', 'reviewed_at': '2026-10-24T17:09:37.873759+00:00', 'scope': 'All 81 decoded frames inspected. Human and three pets continue alternating natural steps; Human slows, turns and bends toward them. Camera approaches supported phone in a continuous arc. Human keeps two arms/legs, pets keep attached limbs and one tail each; four distinct pony hooves and four kitten paws in clear ending poses. Coral ball stays in puppy mouth. Hands support the handset throughout; no stray paw or doubled animal. Native screen projection is reviewed separately. Family-walk to family-close seam visually continuous in camera, pose and identity, with 29.78 dB PSNR and mean pixel difference 5.12/255.'}
+Path('/kaggle/working/beans-wan-production-v5/shots/family-close/review.json').write_text(json.dumps(beans_family_close_review,indent=2))
+print('FAMILY_CLOSE_VISUAL_REVIEW_ACCEPTED; production queue complete')

@@ -1,0 +1,146 @@
+{
+  "source_repository": "Beans-iOS",
+  "source_commit": "086a8a3cb349570013ae54fe1e1d1243ef3d1870",
+  "captured": "2026-10-24",
+  "source_unchanged": true,
+  "bundle": "com.terminallylazy.beans.landing.capture",
+  "simulator": "iPhone 17 Pro iOS 27.0",
+  "synthetic": true,
+  "fixtures": "Cleo (cat), Willow (dog), Bert (horse); isolated native debug probe",
+  "activity": "Each pet has a manually entered 12-minute Activity log. No live tracking or clinical result.",
+  "scenes": "Native onboarding, My Pets before the walk and after recorded activity, actual animal menu.",
+  "assets": [
+    {
+      "screen": "add-cat",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/add-cat.webp",
+      "raw_sha256": "0f2d3d8ab980ad1623a869d9a3936a8732cc09bf994bff842463224ff93ec433",
+      "sha256": "8335fe3540037c77f96e5022503986c61023546ea46dd5e31da813c45239e453",
+      "bytes": 129694
+    },
+    {
+      "screen": "add-dog",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/add-dog.webp",
+      "raw_sha256": "14ddfdc7f501f367f11765f6e7232a5c0a6716e04431f5a874472120e5568fa5",
+      "sha256": "b25be16d1983b9e5fd56a27fe676339eb1714c0d576f529fe54e1f9670114ad9",
+      "bytes": 127960
+    },
+    {
+      "screen": "add-horse",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/add-horse.webp",
+      "raw_sha256": "3871f53edbe5bb01aec5001af488ffafa4133a9c467eb92f37f57c4b09e1d91f",
+      "sha256": "0bb3c6fee4fce7d4af5d2f258893b755be8f565662c3208579911619c4011deb",
+      "bytes": 126336
+    },
+    {
+      "screen": "cat-activity",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/cat-activity.webp",
+      "raw_sha256": "411d3a2c4b2209376be821d9d4ee177b92ad7f3dcdd1b8f118cb81dcb462e522",
+      "sha256": "f6c183afbdcc0834288ae01868d759220e068aae21d6e9c4e480cc3006339af5",
+      "bytes": 216440
+    },
+    {
+      "screen": "cat",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/cat.webp",
+      "raw_sha256": "401b0f32101c7769c301a6969e7c5011c83c2d8558b8eed324ffcab03dddd9dd",
+      "sha256": "1c6b163f8602fe6e26150b9e7d97b648bac53715461b711a3c59edb43e4c28fb",
+      "bytes": 239380
+    },
+    {
+      "screen": "dog-activity",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/dog-activity.webp",
+      "raw_sha256": "4fc43919604e24139d81451f947fb6901f79606e93d31c29c5d730bbc4168b28",
+      "sha256": "72731666165cae0227d3794f068927574dfe5efdc8b262582c84c96db388faaf",
+      "bytes": 205270
+    },
+    {
+      "screen": "dog",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/dog.webp",
+      "raw_sha256": "d24acecf3007c1a811c430bc2722ed4c5903a594c4475743d8a8e7acbbd19dce",
+      "sha256": "4d69e5fd1b2053fc634b2de870d9fd24aba459e7b043100d11fed4fbda26c639",
+      "bytes": 229130
+    },
+    {
+      "screen": "empty",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/empty.webp",
+      "raw_sha256": "333b95db393e99df08fe8c8f3c29785e6c3a13d4f548e0df16df60ffee351ce2",
+      "sha256": "4fde0a000321f270e4bdfb51fa804eebb8b3ab6f13a30bed66b87483f1a27b40",
+      "bytes": 133088
+    },
+    {
+      "screen": "family-menu",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/family-menu.webp",
+      "raw_sha256": "06e4a44227bb83b2757b45d062af33bbac9c7a16795b5c0c8ee5806e6cb27eb0",
+      "sha256": "f8d1778425a3818c37d65c8447827b0761e99f07697a01a60b4ecdd20695c5ed",
+      "bytes": 180208
+    },
+    {
+      "screen": "horse-activity",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/horse-activity.webp",
+      "raw_sha256": "8fa7157488645ebe0b6926adfaceabc8cdb425a0a2c009bd3f590742fdda46c6",
+      "sha256": "8fa3555d212be60ee8da10b689a8c709995b88c56c73fe0f65f3b79bc5716198",
+      "bytes": 179798
+    },
+    {
+      "screen": "horse",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/horse.webp",
+      "raw_sha256": "116d4403bb8e1cb46a834ad18f9dad10f50a24b72615eca3a649044e0a113045",
+      "sha256": "27fd5fd9b5c3f65e8eb318e1ddabd4607fbd7445dd6ae047f2e9e75eaf4cbf9e",
+      "bytes": 204508
+    },
+    {
+      "screen": "welcome",
+      "capture_dimensions": [
+        1206,
+        2622
+      ],
+      "asset": "public/assets/story/native/welcome.webp",
+      "raw_sha256": "1eebff636a5384a76fa46b116002836499ffa67fb432330f6bf0a80c62ef84c7",
+      "sha256": "c2765bca81df81c48b0362c62ed0a18688720612637773eeaa80765513f61ff8",
+      "bytes": 157686
+    }
+  ]
+}
