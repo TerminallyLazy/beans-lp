@@ -9,8 +9,8 @@ export const STORY_SHOTS = [
 export type Pet = 'cat' | 'dog' | 'horse';
 export type AppScreen = 'welcome' | 'empty' | 'add-cat' | 'add-dog' | 'add-horse' | 'cat' | 'dog' | 'horse' | 'cat-activity' | 'dog-activity' | 'horse-activity' | 'family';
 export const STORY_DURATION = STORY_SHOTS.reduce((sum, shot) => sum + shot.seconds + shot.hold, 0);
-type StoryShot = { id: typeof STORY_SHOTS[number]['id']; seconds: number; hold: number };
-type FilmTiming = { fps: number; frame_count: number; scenes: { id: string; start_frame: number; frames: number }[] };
+type StoryShot = { id: typeof STORY_SHOTS[number]['id']; seconds: number; hold: number; holdEnd?: number };
+type FilmTiming = { fps: number; frame_count: number; scenes: { id: string; start_frame: number; frames: number; hold_end_frame?: number }[] };
 
 /** Retain velocity at both ends of a settling beat. Hard linear retiming made
  * every registration feel like a sudden brake followed by an acceleration. */
@@ -35,7 +35,11 @@ export function createStoryClock(film: FilmTiming) {
     const intended = STORY_SHOTS[index];
     if (scene.id !== intended.id || scene.start_frame !== nextFrame || !Number.isInteger(scene.frames) || scene.frames < 2) throw new Error('Story scenes are incomplete or out of order.');
     nextFrame += scene.frames;
-    const shot = { id: intended.id, seconds: scene.frames / film.fps, hold: intended.hold };
+    const shot: StoryShot = { id: intended.id, seconds: scene.frames / film.fps, hold: intended.hold };
+    if (scene.hold_end_frame !== undefined) {
+      if (!Number.isInteger(scene.hold_end_frame) || scene.hold_end_frame <= scene.start_frame || scene.hold_end_frame >= nextFrame) throw new Error('Invalid authored settling beat.');
+      shot.holdEnd = (scene.hold_end_frame - scene.start_frame) / film.fps;
+    }
     labels[scene.id] = nextStoryTime; nextStoryTime += shot.seconds + shot.hold;
     return shot;
   });
@@ -65,7 +69,8 @@ function frameAt(input: number, shots: readonly StoryShot[], fps: number, durati
   for (const [index, shot] of shots.entries()) {
     const end = storyStart + shot.seconds + shot.hold;
     if (time < end || index === shots.length - 1) {
-      const local = time - storyStart, held = Math.max(0, local - shot.seconds);
+      const local = time - storyStart, holdEnd = shot.holdEnd ?? shot.seconds;
+      const held = Math.min(shot.hold, Math.max(0, local - holdEnd));
       let screen: AppScreen = index === 0 ? 'welcome' : index === 1 ? 'empty' : index === 2 ? 'cat' : index === 3 ? 'dog' : 'horse';
       if (index === 0 && held > .8) screen = 'empty';
       if (index > 0 && index < 4 && held > .15) {
@@ -75,8 +80,11 @@ function frameAt(input: number, shots: readonly StoryShot[], fps: number, durati
       if (index === 4) screen = held <= 0 ? 'cat-activity' : held < 1.1 ? 'family' : (['cat-activity', 'dog-activity', 'horse-activity'] as const)[Math.min(2, Math.floor((held - 1.1) / 1.3))];
       // Give registration room by slowing the performed settling beat, retaining breathing,
       // ears and butterfly motion instead of freezing a character into a cutout.
-      const settlingLength = Math.min(2, shot.seconds / 2), settlingStart = shot.seconds - settlingLength;
-      const filmLocal = local < settlingStart ? local : settlingStart + settlingTime(local - settlingStart, settlingLength, shot.hold);
+      const settlingLength = shot.holdEnd === undefined ? Math.min(2, shot.seconds / 2) : Math.min(2, holdEnd);
+      const settlingStart = holdEnd - settlingLength;
+      const filmLocal = local < settlingStart ? local : local <= holdEnd + shot.hold
+        ? settlingStart + settlingTime(local - settlingStart, settlingLength, shot.hold)
+        : local - shot.hold;
       return { time, shot: shot.id, index, local, held, screen,
         filmTime: filmStart + Math.min(shot.seconds - 1 / fps, Math.max(0, filmLocal)),
         petCount: Math.min(3, Math.max(0, index - 1) + (index > 0 && index < 4 && held >= 1.8 ? 1 : 0)),

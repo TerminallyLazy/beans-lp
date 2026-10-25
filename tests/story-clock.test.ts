@@ -36,4 +36,25 @@ describe('complete encounter clock', () => {
     expect(() => createStoryClock({ fps: 16, frame_count: offset + 1, scenes })).toThrow();
     expect(() => createStoryClock({ fps: 16, frame_count: offset, scenes: [...scenes].reverse() })).toThrow();
   });
+  it('finishes the family app visit before walking, without returning to the kneeling shot', () => {
+    const scenes = [
+      { id:'phone',start_frame:0,frames:304 }, { id:'kitten',start_frame:304,frames:364 },
+      { id:'puppy',start_frame:668,frames:304 }, { id:'pony',start_frame:972,frames:363 },
+      { id:'family',start_frame:1335,frames:255,hold_end_frame:1425 },
+    ];
+    const clock = createStoryClock({ fps:60,frame_count:1590,scenes });
+    const start = clock.labels.family, walk = start + 1.5 + 5;
+    expect(clock.frame(start).filmTime * 60).toBeCloseTo(1335);
+    expect(clock.frame(start + 3).filmTime * 60).toBeLessThan(1425);
+    expect(clock.frame(start + 3).screen).toBe('cat-activity');
+    expect(clock.frame(walk).filmTime * 60).toBeCloseTo(1425);
+    const frames = Array.from({length:121},(_,i)=>Math.round(clock.frame(walk+(clock.duration-walk)*i/120).filmTime*60));
+    expect(frames.every((frame,i)=>frame>=1425 && (i===0 || frame>=frames[i-1]))).toBe(true);
+    expect(frames.at(-1)).toBe(1589);
+    const positions = [start, start+2, walk, clock.duration, walk, start+2, start];
+    const route = positions.map(time=>clock.frame(time).filmTime);
+    expect(route).toEqual([...route].reverse());
+    expect(clock.forFilmFrame(1430,clock.frame(start)).filmTime*60).toBeCloseTo(1429.5,4);
+    expect(()=>createStoryClock({fps:60,frame_count:1590,scenes:scenes.map(scene=>scene.id==='family'?{...scene,hold_end_frame:1590}:scene)})).toThrow();
+  });
 });

@@ -35,13 +35,17 @@
 .overview-features h3 { max-width:17em; font-size:clamp(21px,1.7vw,28px); line-height:1.25; letter-spacing:-.035em; font-weight:600; }
 .overview-features p { max-width:34em; margin-top:18px; color:#526374; font-size:15px; line-height:1.75; }
 .beans-finish { min-height:100svh; display:flex; flex-direction:column; background:#fdfdfa; }
-.join-beans { flex:1; background:#fdfdfa; color:#051d38; padding:112px 9vw 100px; display:flex; gap:70px; align-items:center; justify-content:space-between; }
+.join-beans { flex:1; background:#fdfdfa; color:#051d38; padding:90px 9vw 80px; display:flex; gap:30px; align-items:center; justify-content:space-between; overflow:clip; }
+.join-copy { position:relative; z-index:1; flex:none; }
+.join-visual { position:relative; flex:1; min-width:190px; max-width:590px; height:clamp(340px,37vw,530px); display:grid; place-items:center; }
+.finish-artwork { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; overflow:visible; }
+.finish-mobile-mark { display:none; }
 .join-copy h2 { font:600 clamp(48px,5.5vw,84px)/1.08 'Manrope',-apple-system,BlinkMacSystemFont,sans-serif; letter-spacing:-.055em; padding-bottom:.12em; }
 .beta-link { display:inline-flex; align-items:center; gap:35px; margin-top:32px; background:#051d38; border:1px solid #051d38; border-radius:40px; color:#fdfdfa; padding:20px 27px; text-decoration:none; font-weight:550; }
 .beta-link:hover { background:#173a59; }
 .testflight-help { display:flex; min-height:44px; gap:8px; align-items:center; margin-top:17px; font-size:12px; text-decoration:none; color:#526374; }
 .testflight-help:hover { text-decoration:underline; text-underline-offset:4px; }
-.beta-qr { padding:18px; border:1px solid #dce0dc; border-radius:20px; }
+.beta-qr { position:relative; z-index:1; padding:18px; border:1px solid #dce0dc; border-radius:20px; background:#fdfdfa; }
 .beta-qr img { width:132px; height:132px; }
 .beans-footer { padding:30px 4vw; display:flex; gap:40px; justify-content:space-between; align-items:center; color:#051d38; background:#fdfdfa; border-top:1px solid #e7e9e2; }
 .beans-footer img { width:100px; height:auto; }
@@ -74,7 +78,9 @@
   .overview-features { grid-template-columns:1fr; gap:32px; margin-top:38px; }
   .overview-features h3 { font-size:25px; }
   .overview-features p { margin-top:12px; }
-  .join-beans { padding:70px 7vw; gap:30px; align-items:flex-start; }
+  .join-beans { padding:65px 7vw 30px; gap:20px; align-items:flex-start; flex-direction:column; }
+  .join-visual { width:100%; min-width:0; flex:none; height:clamp(190px,28svh,260px); margin-top:auto; }
+  .finish-mobile-mark { display:initial; }
   .join-copy h2 { font-size:clamp(41px,9vw,64px); }
   .beta-link { padding:17px 20px; font-size:14px; gap:20px; }
   .beta-qr { display:none; }

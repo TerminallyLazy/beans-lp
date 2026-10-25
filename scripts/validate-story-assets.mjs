@@ -22,6 +22,8 @@ for (const [index, id] of ['phone', 'kitten', 'puppy', 'pony', 'family'].entries
   offset += scene.frames;
 }
 if (offset !== release.frameCount || track.scenes.length !== 5) throw new Error('Scene timing does not cover the film.');
+const walkStart = track.scenes[4].hold_end_frame;
+if (!Number.isInteger(walkStart) || walkStart <= track.scenes[4].start_frame || walkStart >= track.frame_count || track.still_frame !== walkStart - 1 || track.faces[track.still_frame] !== 'app' || !track.frames[track.still_frame] || track.faces.slice(walkStart).some(face => face !== 'case')) throw new Error('The final app visit must precede the walking finish.');
 for (const quad of track.frames) if (quad && (quad.length !== 4 || quad.some(p => p.length !== 2 || p.some(v => !Number.isFinite(v))))) throw new Error('Malformed phone plane.');
 for (const name of ['journey','journey-hd']) {
   const index = JSON.parse(await readFile(new URL(`public/assets/story/${name}.index.json`, root),'utf8'));

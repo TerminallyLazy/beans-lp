@@ -10,15 +10,16 @@ import type { PhoneRear } from './phone-rear';
 import { createNativeScreenArt, PETS } from './native-screen-art';
 import { createStoryClock, storyFrame, type AppScreen, type Pet } from './story-clock';
 import { inverseProjection, projectPoint, screenProjection, type ScreenQuad } from './screen-projection';
-import { mobileFraming } from './mobile-framing';
+import { familyFraming, mobileFraming } from './mobile-framing';
 import { decodedPresentation, phoneFace } from './frame-presentation';
 import ProductOverview from './ProductOverview';
+import FinishArtwork from './FinishArtwork';
 import { filmViewport } from './film-viewport';
 import './encounter-landing.css';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger, ScrollSmoother, SplitText);
 const BETA = 'https://testflight.apple.com/join/7WSeN4VB';
-type Track = { width: number; height: number; fps: number; frame_count: number; frames: (ScreenQuad | null)[]; faces: ('app' | 'case')[]; scenes: { id: string; start_frame: number; frames: number }[] };
+type Track = { width: number; height: number; fps: number; frame_count: number; still_frame: number; frames: (ScreenQuad | null)[]; faces: ('app' | 'case')[]; scenes: { id: string; start_frame: number; frames: number; hold_end_frame?: number }[] };
 type Loaded = { compositor: FilmCompositor; screens: Record<AppScreen, HTMLImageElement>; track: Track; ending: HTMLImageElement; cache?: CachedFilm };
 type Delights = ReturnType<typeof import('./story-delights').createStoryDelights>;
 const image = (src: string) => new Promise<HTMLImageElement>((resolve, reject) => {
@@ -74,14 +75,14 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
       }).catch(() => undefined), mediaReady, document.fonts.ready,
     ]).then(([track, screens, ending, rear]) => {
       if (cancelled) return;
-      if (track.frames.length !== track.frame_count || track.faces.length !== track.frame_count || track.fps <= 0) throw new Error('Incomplete story tracking');
+      if (track.frames.length !== track.frame_count || track.faces.length !== track.frame_count || !Number.isInteger(track.still_frame) || !track.frames[track.still_frame] || track.fps <= 0) throw new Error('Incomplete story tracking');
       createStoryClock(track);
       fitFilmSurface(surface);
       compositor = new FilmCompositor(surface, screens.welcome, rear);
       root.current!.dataset.phoneRender = rear ? 'geometry' : 'source';
       const rect = surface.getBoundingClientRect();
       compositor.setViewport(filmViewport(rect.width, rect.height, track.width, track.height));
-      compositor.draw(staticView ? ending : cache?.get(0) || video, staticView ? track.frames.at(-1) || null : track.frames[0]); setLoaded({ track, screens, compositor, ending, cache });
+      compositor.draw(staticView ? ending : cache?.get(0) || video, staticView ? track.frames[track.still_frame] : track.frames[0]); setLoaded({ track, screens, compositor, ending, cache });
     }).catch(() => { if (!cancelled) setUnavailable(true); });
     const lost = () => setUnavailable(true);
     const mediaError = () => {
@@ -101,6 +102,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
     // have already scrolled to the beta section.
     if (scrollY >= element.offsetTop + stage.current!.offsetHeight) { setSkipped(true); return; }
     const familyStart = track.scenes[4].start_frame;
+    const familyWalkStart = track.scenes[4].hold_end_frame!;
     let still = false, requested = 0, lastArt = '', disposed = false, active = true;
     let cached = Boolean(loaded.cache);
     element.dataset.decoder = cached ? 'frame-cache' : 'video-seek';
@@ -108,7 +110,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
     const draw = (source?: FilmSource, decodedFrame?: number) => {
       if (document.hidden || disposed) return;
       const began = performance.now();
-      if (still) { presented = state.current; presentedFrame = track.frame_count - 1; }
+      if (still) { presented = state.current; presentedFrame = track.still_frame; }
       else if (source) presentedFrame = decodedFrame ?? Math.min(track.frame_count - 1, Math.max(0, Math.round(video.currentTime * track.fps)));
       const frame = presentedFrame;
       const key: AppScreen = selected.current && presented.index === 4 ? `${selected.current}-activity` : presented.screen;
@@ -125,18 +127,19 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
         const visibleWidth = Math.min(1, rect.width / Math.max(rect.width, rect.height * track.width / track.height));
         const quad = track.frames[frame];
         const phoneX = quad ? quad.reduce((sum, point) => sum + point[0], 0) / 4 : .55;
-        const focus = mobileFraming(presented, phoneX, firstPhoneTime);
+        const focus = presented.index === 4 ? familyFraming(frame, familyWalkStart, track.frame_count - 1, phoneX) : mobileFraming(presented, phoneX, firstPhoneTime);
         position = Math.max(0, Math.min(1, (focus - visibleWidth / 2) / Math.max(.001, 1 - visibleWidth)));
       }
       compositor.setViewport(filmViewport(rect.width, rect.height, track.width, track.height, position));
-      if (still) compositor.draw(ending, track.frames.at(-1) || null);
+      if (still) compositor.draw(ending, track.frames[track.still_frame]);
       else if (source) compositor.draw(source, track.frames[frame], screenOpacity, face);
       else compositor.redraw(track.frames[frame], screenOpacity, face);
       element.dataset.frame = String(frame); element.dataset.screen = key;
       element.dataset.renderMs = (performance.now()-began).toFixed(1);
       element.dataset.screenTracked = track.frames[frame] ? 'true' : 'false';
       element.dataset.phoneFace = face; element.dataset.chapter = presented.shot;
-      const end = presented.time >= story.duration - 5;
+      element.dataset.beat = presented.index === 4 ? frame < familyWalkStart ? 'family-app' : 'family-walk' : presented.shot;
+      const end = presented.index === 4 && face === 'app';
       setAtEnd(previous => previous === end ? previous : end);
     };
     const seek = () => {
@@ -241,7 +244,7 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
   const choose = (pet: Pet) => { selected.current = pet; setActivePet(pet); updateArt.current?.(); flourish(); };
   const phoneTap = (event: React.PointerEvent<HTMLCanvasElement>) => {
     if (!loaded || state.current.index !== 4 || root.current?.dataset.phoneFace === 'case') return;
-    const frame = root.current?.dataset.motion === 'reduced' ? loaded.track.frame_count - 1 : Number(root.current?.dataset.frame || 0);
+    const frame = root.current?.dataset.motion === 'reduced' ? loaded.track.still_frame : Number(root.current?.dataset.frame || 0);
     const quad = loaded.track.frames[frame], plane = quad && screenProjection(quad), inverse = plane && inverseProjection(plane);
     if (!inverse) return;
     const rect = event.currentTarget.getBoundingClientRect(), crop = loaded.compositor.getViewport();
@@ -294,7 +297,10 @@ export default function EncounterLanding({ stillFrame = false }: { stillFrame?: 
         <a className="beta-link" href={BETA}>Join the iPhone beta <span aria-hidden="true">↗</span></a>
         <a className="testflight-help" href="https://testflight.apple.com/"><img src="/assets/story/apple-testflight.png" width="24" height="24" alt="" />Available through Apple TestFlight</a>
       </div>
-      <a className="beta-qr" href={BETA} aria-label="Open the Beans public beta"><img src="/assets/story/beans-public-beta-qr.svg" alt="QR code for the Beans public beta" width="132" height="132" /></a>
+      <div className="join-visual">
+        <FinishArtwork />
+        <a className="beta-qr" href={BETA} aria-label="Open the Beans public beta"><img src="/assets/story/beans-public-beta-qr.svg" alt="QR code for the Beans public beta" width="132" height="132" /></a>
+      </div>
     </section>
     <footer className="beans-footer"><a href="#hero" aria-label="Beans home" onClick={goHome}><img src="/assets/beans-logo-light.webp" alt="Beans" width="111" height="30" /></a>
       <nav aria-label="Footer"><a href="mailto:contact@petswithbeans.com">Contact</a><a href="https://beans-api-omega.vercel.app/support">Support</a><a href="https://beans-api-omega.vercel.app/privacy">Privacy</a></nav>
