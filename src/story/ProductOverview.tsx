@@ -18,7 +18,7 @@ export default function ProductOverview() {
 
   return <section className="beans-overview" ref={root} aria-labelledby="overview-heading">
     <div className="overview-intro overview-reveal">
-      <h2 id="overview-heading">Their everyday.<br />All together.</h2>
+      <h2 id="overview-heading">Every day.<br />Better together.</h2>
       <div className="overview-family" aria-hidden="true">
         {PETS.map(pet => <img key={pet.id} src={pet.image} width="150" height="150" alt="" loading="lazy" />)}
       </div>
