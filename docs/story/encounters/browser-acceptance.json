@@ -190,5 +190,62 @@
       "No physical iPhone acceptance.",
       "Prior broader fallback, skip and control coverage above used the same runtime before this source edit."
     ]
+  },
+  "singleKneelAndEndingAcceptance": {
+    "checkedUTC": "2026-10-25T01:04:37.659451+00:00",
+    "frames": 1590,
+    "sourceRangesInOrder": [
+      [
+        0,
+        355
+      ],
+      [
+        494,
+        517
+      ],
+      [
+        400,
+        443
+      ]
+    ],
+    "uniqueSourceFrames": 424,
+    "forwardCheckpointOrder": [
+      "kitten",
+      "puppy",
+      "pony",
+      "family-app",
+      "family-walk"
+    ],
+    "sampledBackwardFrameSteps": 0,
+    "appPetSelectionBeforeWalk": true,
+    "controlsHiddenForWalking": true,
+    "reverseReturnsToApp": true,
+    "portraitAppAndWalkingFinish": true,
+    "reducedMotionFrame": 1424,
+    "reducedMotionVideoSource": null,
+    "reducedMotionPins": 0,
+    "reducedMotionPetSelection": true,
+    "endingArtworkWidths": [
+      320,
+      390,
+      820,
+      1280
+    ],
+    "noHorizontalOverflow": true,
+    "consoleWarningsAndErrors": 0,
+    "evidenceDirectory": "/tmp/beans-cinematic/single-kneel-review",
+    "evidence": [
+      "forward-audit.json",
+      "app-before-walk.png",
+      "final-walk.png",
+      "app-mobile.png",
+      "walk-mobile.png",
+      "reduced-mobile.png",
+      "halftone-desktop.png",
+      "halftone-mobile.png"
+    ],
+    "limits": [
+      "Chromium browser checks on this Mac; physical iPhone acceptance not claimed."
+    ]
   }
 }

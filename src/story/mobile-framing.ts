@@ -5,6 +5,13 @@ const ease = (value: number) => {
 
 type FramingState = { index: number; local: number; held: number; filmTime: number };
 
+/** The app visit comes before the final walk. Follow the displayed source
+ * phase, including on reverse scroll and in the accessible static app view. */
+export function familyFraming(frame: number, walkStart: number, finalFrame: number, phoneX: number) {
+  if (frame < walkStart) return phoneX;
+  return .5 + .1 * ease((frame - walkStart) / Math.max(1, finalFrame - walkStart));
+}
+
 /** Keep chapter boundaries on the held phone, then follow the arriving animal.
  * The return to the display is tied to registration, so reversing the scroll
  * traces the same camera path without a stored or accumulated offset.

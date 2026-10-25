@@ -1,5 +1,5 @@
 {
-  "createdUTC": "2026-10-24T22:27:30.846544+00:00",
+  "createdUTC": "2026-10-25T00:17:10.428041+00:00",
   "source": {
     "url": "https://raw.githubusercontent.com/TerminallyLazy/beans-lp/d93019a950d6720824818c7cc3d576201b8999b5/public/assets/story/journey.mp4",
     "sha256": "406f561a957021ef53cecd65b7cdf0b07780f0c94f93d4d053df06183cf5d35f",
@@ -30,7 +30,7 @@
     "release": "20221029",
     "license": "MIT",
     "runtime": "Local M4 Pro / NCNN Vulkan",
-    "sourceSampling": "i * 474 / 1778, clamped to final source pose. Samples straddling the editorial cut hold source 355; no neural morph across the cut. Tracking and handset orientation use the same sampling positions.",
+    "sourceSampling": "i * 424 / 1590, clamped to final source pose. Samples straddling either editorial cut hold the outgoing source pose; no neural morph across either cut. Tracking and handset orientation share these positions.",
     "hashes": {
       "rife-ncnn-vulkan": "d11429c72f0cddfb170fd131ee9373dc5329a5729c4382c0acfd40092e5ed19a",
       "LICENSE": "a73beab18143600af0b10c6050a953ec233775ce31c2bf3373a794db535329fd",
@@ -43,8 +43,8 @@
     "crf": 20,
     "gop": 8,
     "fps": 60,
-    "frames": 1778,
-    "durationSeconds": 29.633333333333333,
+    "frames": 1590,
+    "durationSeconds": 26.5,
     "desktop": [
       1920,
       1088
@@ -57,7 +57,7 @@
   "visualReview": {
     "agentReviewed": true,
     "ownerApproval": false,
-    "scope": "The earlier review missed the impossible Human turn identified by the owner. All 44 source frames 356-399 are now excluded. All 118 retained family source frames were inspected in five numbered sheets, plus 125 delivery samples across the film, every eighth family frame, and all cut neighbors. The cut, incoming front-facing family pose and selected walking poses were inspected full size. No neural interpolation is retained across the edit. This is agent review, not owner approval.",
+    "scope": "The earlier edit contained two kneeling actions. The revised sequence uses each retained source ID once: one continuous kneeling encounter and app close-up, followed by the standing family walk. Reviewed 73 delivery samples across the film, every twelfth ending frame, both cuts and final pose; incoming cut frames inspected full size. Earlier retained-source pose review remains historical. This does not claim independent full-size inspection of every neural intermediate.",
     "evidenceDirectory": "/tmp/beans-cinematic",
     "rejectedCandidates": [
       "FSRCNN delivery replaced for grain/softness",
@@ -74,23 +74,43 @@
   ],
   "candidateRecipe": "scripts/prepare-cinematic-film.py",
   "editorialEdit": {
-    "sourceFrames": 474,
+    "sourceFrames": 424,
     "sourceRangesInclusive": [
       [
         0,
         355
       ],
       [
-        400,
+        494,
         517
+      ],
+      [
+        400,
+        443
       ]
     ],
-    "excludedSourceRangeInclusive": [
-      356,
-      399
+    "excludedSourceRangesInclusive": [
+      [
+        356,
+        399
+      ],
+      [
+        444,
+        493
+      ]
     ],
-    "reason": "Owner identified an impossible head/torso turn. Remove the entire rise/turn setup and cut directly from the pony registration to the valid front-facing family walk.",
+    "reason": "Keep one kneeling encounter: complete the native app close-up while already kneeling, then finish with the standing family walk. The former second kneel and malformed rise/turn are excluded.",
+    "beats": [
+      "pet-encounters",
+      "family-app",
+      "family-walk"
+    ],
+    "deliveryCutFrames": [
+      1335,
+      1425
+    ],
     "interpolateAcrossEdit": false,
-    "handsetOrientation": "Authored per delivered frame from retained source IDs; rear during source 400-477, native app after source 478."
+    "staticAppFrame": 1424,
+    "handsetOrientation": "Native app during the final close-up; modeled rear throughout the final walking beat."
   }
 }

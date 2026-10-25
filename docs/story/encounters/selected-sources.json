@@ -211,7 +211,7 @@
         "review_required": false,
         "notes": "All visible-plane tiles inspected. Hidden lower corners inferred behind hands, cropped upper corners inferred above frame. No projection on edge-on intervals. Closing glint outlier 47 interpolated from adjacent planes and late bottom edges extended to visible glass support. Browser composite review pending. All geometry tiles reviewed. Native UI projection checked in browser on the full family source at turning frame 9, walking frame 72, corrected turn frame 128 and final frame 161. Fingers, sleeve and bezel retained, no console errors."
       },
-      "releaseUse": "Only global source frames 400-517. Original 356-399 rejected for impossible head/torso turn; previous full-performance approval superseded."
+      "releaseUse": "Closing already-kneeling app view (global 494-517), then standing walk (400-443), with no reused source IDs. The malformed turn and second kneeling action are excluded."
     }
   ],
   "webEncode": {
@@ -219,40 +219,60 @@
     "crf": 20,
     "gop": 8,
     "fps": 60,
-    "frames": 1778,
+    "frames": 1590,
     "variants": {
       "hd": {
         "width": 1920,
         "height": 1088,
-        "bytes": 75330203
+        "bytes": 64436232
       },
       "base": {
         "width": 960,
         "height": 544,
-        "bytes": 27741785
+        "bytes": 23784019
       }
     },
     "processing": "cinematic-media.json",
-    "review": "The earlier review missed the impossible Human turn identified by the owner. All 44 source frames 356-399 are now excluded. All 118 retained family source frames were inspected in five numbered sheets, plus 125 delivery samples across the film, every eighth family frame, and all cut neighbors. The cut, incoming front-facing family pose and selected walking poses were inspected full size. No neural interpolation is retained across the edit. This is agent review, not owner approval."
+    "review": "The earlier edit contained two kneeling actions. The revised sequence uses each retained source ID once: one continuous kneeling encounter and app close-up, followed by the standing family walk. Reviewed 73 delivery samples across the film, every twelfth ending frame, both cuts and final pose; incoming cut frames inspected full size. Earlier retained-source pose review remains historical. This does not claim independent full-size inspection of every neural intermediate."
   },
   "editorialEdit": {
-    "sourceFrames": 474,
+    "sourceFrames": 424,
     "sourceRangesInclusive": [
       [
         0,
         355
       ],
       [
-        400,
+        494,
         517
+      ],
+      [
+        400,
+        443
       ]
     ],
-    "excludedSourceRangeInclusive": [
-      356,
-      399
+    "excludedSourceRangesInclusive": [
+      [
+        356,
+        399
+      ],
+      [
+        444,
+        493
+      ]
     ],
-    "reason": "Owner identified an impossible head/torso turn. Remove the entire rise/turn setup and cut directly from the pony registration to the valid front-facing family walk.",
+    "reason": "Keep one kneeling encounter: complete the native app close-up while already kneeling, then finish with the standing family walk. The former second kneel and malformed rise/turn are excluded.",
+    "beats": [
+      "pet-encounters",
+      "family-app",
+      "family-walk"
+    ],
+    "deliveryCutFrames": [
+      1335,
+      1425
+    ],
     "interpolateAcrossEdit": false,
-    "handsetOrientation": "Authored per delivered frame from retained source IDs; rear during source 400-477, native app after source 478."
+    "staticAppFrame": 1424,
+    "handsetOrientation": "Native app during the final close-up; modeled rear throughout the final walking beat."
   }
 }
