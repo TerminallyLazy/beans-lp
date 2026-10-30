@@ -15,6 +15,10 @@ For a local production preview, run `npm run build` and `npm run preview`. The p
 
 Deployment uses `npm run build:release`. It verifies reviewed media hashes, all five scene boundaries and per-frame phone tracking before building. A missing or changed production film blocks deployment. The local preview can show the original Human opening while those assets are being reviewed; that fallback is not a completed animated story.
 
+## Family invitation links
+
+The app shares `https://petswithbeans.com/join#<secret>`. The existing apex redirect leads to `www.petswithbeans.com`; the exact `/join` route proxies the standalone invitation page from `https://beans-api-omega.vercel.app/join`. It does not load the marketing app or its analytics. The invitation secret remains in the browser fragment and is handed to Beans through its custom URL scheme. The route disables caching, referrers and framing. API traffic and existing invitation links keep their original host.
+
 ## Current implementation
 
 One ScrollSmoother filters native page scrolling with 1.1-second sine easing and one ScrollTrigger pins the story stage. A reversible 60 fps clock drives the film, copy, camera crop and foreground choreography together, without a second numeric film scrub. A worker decodes bounded MP4 windows into transferable VideoFrames; a 96 MiB frame cache and 12 MiB encoded look-ahead support immediate reversals without repeatedly seeking a video element. Browsers without supported WebCodecs use the HTML video path. Each displayed picture stays paired with its measured phone plane and app state. Settling beats retain continuous speed at chapter joins.
