@@ -1,0 +1,24 @@
+{
+  "purpose": "Family invitation email and join page",
+  "artwork": "Existing approved Beans puppy, kitten, pony and wordmark; format conversion only",
+  "petSources": "public/assets/story/pets/{dog,cat,horse}.webp; see docs/story/encounters/transparent-pets.json",
+  "wordmarkSource": "Beans-iOS/BeansVet/Resources/BeansAssets.xcassets/BeansLogoHorizontal.imageset/BeansLogoHorizontal-any@2x.png at 07e4bcb",
+  "files": [
+    {
+      "path": "public/assets/invitations/v1/beans-logo.png",
+      "sha256": "7cdab0be1735deb8eda42283e9c263037191776ce9d32bd3e3739c0cfd7045a0"
+    },
+    {
+      "path": "public/assets/invitations/v1/kitten.png",
+      "sha256": "94fa6692f9e72d8465ae6e216b4e574df08d3e6615e001c47fa7f6ed6c80ea72"
+    },
+    {
+      "path": "public/assets/invitations/v1/pony.png",
+      "sha256": "1251ce96124dbc36f747bbf007e9a182709759c074da081313fc22bf75823e1e"
+    },
+    {
+      "path": "public/assets/invitations/v1/puppy.png",
+      "sha256": "ac38eb5bdfaa136114e158baa9bdd541e4f05e188a7841bb843206782ee15029"
+    }
+  ]
+}
